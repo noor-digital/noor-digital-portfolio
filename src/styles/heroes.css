@@ -1,0 +1,198 @@
+/* Heroes des pages À propos et Contact. Même langage que l'accueil (barre oblique, titre italique,
+   seconde ligne « au trait »), mais compacts : le texte d'abord, l'illustration en soutien. */
+
+.nh-ab-hero,
+.nh-ct-hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(28px, 5vw, 64px)) 0 clamp(64px, 8vw, 104px);
+  background: linear-gradient(180deg, #0b1628 0%, #0e2040 100%);
+}
+/* Fines lignes de vitesse en fond : une par page, orientées différemment. */
+.nh-ab-hero::before,
+.nh-ct-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.nh-ab-hero::before {
+  background: repeating-linear-gradient(115deg, transparent 0 46px, rgba(215, 224, 234, 0.045) 46px 47px);
+  mask-image: linear-gradient(90deg, #000, transparent 70%);
+}
+.nh-ct-hero::before {
+  background: repeating-linear-gradient(72deg, transparent 0 54px, rgba(22, 184, 176, 0.07) 54px 55px);
+  mask-image: linear-gradient(270deg, #000, transparent 75%);
+}
+.nh-ab-hero .container,
+.nh-ct-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.nh-ab-hero__kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  font-size: 0.98rem;
+  color: var(--nh-mist);
+}
+
+/* Titre : même gabarit sur les deux pages ; la seconde ligne est dessinée au trait, comme à l'accueil. */
+.nh-hero-title {
+  font-size: clamp(2.7rem, 7.4vw, 6.4rem);
+  line-height: 0.92;
+}
+.nh-hero-title .nh-title__mask:nth-child(2) .nh-title__line {
+  color: var(--nh-navy);
+  -webkit-text-stroke: clamp(1.5px, 0.18vw, 2.5px) var(--nh-white);
+  paint-order: stroke fill;
+}
+
+/* ── À propos ──────────────────────────────────────────────── */
+.nh-ab-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 80px);
+}
+.nh-ab-hero__sub {
+  max-width: 30rem;
+  margin-top: clamp(18px, 2.4vw, 28px);
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--nh-mist);
+}
+.nh-ab-creds {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: clamp(26px, 3.4vw, 40px);
+  max-width: 44rem;
+  border-top: 1px solid var(--nh-line);
+}
+.nh-ab-creds > div {
+  padding: 14px 18px 0 0;
+}
+.nh-ab-creds > div + div {
+  padding-left: 18px;
+  border-left: 1px solid var(--nh-line);
+}
+.nh-ab-creds dt {
+  font-size: 0.85rem;
+  color: var(--nh-turq);
+  font-weight: 600;
+}
+.nh-ab-creds dd {
+  margin-top: 4px;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--nh-white);
+}
+.nh-ab-hero__art {
+  aspect-ratio: 4 / 5;
+  max-height: 460px;
+  width: 100%;
+}
+.nh-ab-hero__art .nh-panel__in {
+  inset: 2px;
+}
+
+/* ── Contact ───────────────────────────────────────────────── */
+.nh-ct-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(28px, 4vw, 72px);
+}
+.nh-ct-hero__sub {
+  max-width: 27rem;
+  margin-top: clamp(18px, 2.4vw, 28px);
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--nh-mist);
+}
+.nh-ct-flow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(24px, 3vw, 36px);
+  padding-top: 18px;
+  border-top: 1px solid var(--nh-line);
+}
+.nh-ct-flow__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--nh-turq);
+}
+.nh-ct-steps {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  counter-reset: s;
+}
+.nh-ct-steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--nh-white);
+  counter-increment: s;
+}
+.nh-ct-steps li::before {
+  content: counter(s);
+  flex: none;
+  font-family: var(--nh-display);
+  font-stretch: 78%;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--nh-turq);
+}
+.nh-ct-flow__art {
+  flex: none;
+  width: clamp(110px, 12vw, 150px);
+}
+.nh-ct-flow__art .nh-ct-art {
+  width: 100%;
+  margin-top: 0;
+}
+
+@media (max-width: 860px) {
+  .nh-ab-hero__grid,
+  .nh-ct-hero__grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-ab-hero__art {
+    order: -1;
+    aspect-ratio: 16 / 7;
+    max-height: 190px;
+    --poly: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .nh-ab-hero__grid {
+    gap: 24px;
+  }
+}
+@media (max-width: 560px) {
+  .nh-ab-creds {
+    grid-template-columns: 1fr;
+  }
+  .nh-ab-creds > div,
+  .nh-ab-creds > div + div {
+    padding: 12px 0;
+    border-left: 0;
+  }
+  .nh-ab-creds > div + div {
+    border-top: 1px solid var(--nh-line);
+  }
+}
+
+/* Contact : « VOTRE PROJET. » est la ligne la plus longue, la taille tient dans la colonne de gauche. */
+.nh-ct-hero .nh-hero-title {
+  font-size: clamp(2.6rem, 5.3vw, 4.9rem);
+}

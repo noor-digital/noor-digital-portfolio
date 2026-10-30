@@ -1,0 +1,354 @@
+/* ─────────────────────────────────────────────────────────────
+   Page Services — direction « manga cinématique ».
+   Réutilise home.css (.nh, .nh-title, .nh-panel, .nh-cta, .nh-art, .nh-steps…) et about.css (clôture,
+   barre oblique du surtitre). Tout ce qui est propre à cette page est préfixé `nh-sv-`.
+   Rythme : tête + planche des services → une double-page par service → méthode → clôture.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Tête et planche des services ──────────────────────────── */
+
+.nh-sv-head {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(32px, 5vw, 72px)) 0 clamp(72px, 9vw, 120px);
+  background: linear-gradient(180deg, #0b1628 0%, #0e2040 100%);
+}
+.nh-sv-head__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+}
+.nh-sv-head__kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  font-size: 0.98rem;
+  color: var(--nh-mist);
+}
+.nh-sv-title {
+  /* « Services » compte une lettre de plus que « Projets » : taille réduite d’autant. */
+  font-size: clamp(3.4rem, 9vw, 8.8rem);
+  line-height: 0.86;
+}
+.nh-sv-head__sub {
+  max-width: 27rem;
+  margin-top: clamp(22px, 3vw, 34px);
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  line-height: 1.75;
+  color: var(--nh-mist);
+}
+
+.nh-sv-sheet ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+}
+.nh-sv-sheet li:nth-child(2n) {
+  margin-top: clamp(16px, 2.6vw, 36px);
+}
+.nh-sv-thumb {
+  display: block;
+}
+.nh-sv-thumb__art {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background-color: var(--nh-night);
+  background-image:
+    linear-gradient(rgba(215, 224, 234, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 224, 234, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 2px solid rgba(215, 224, 234, 0.7);
+  transition:
+    transform 0.4s var(--nh-ease),
+    border-color 0.3s ease,
+    box-shadow 0.4s var(--nh-ease);
+}
+.nh-sv-thumb__art .nh-art {
+  position: absolute;
+  inset: 0;
+  padding: 6px;
+}
+.nh-sv-thumb__num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 2px 14px 2px 8px;
+  font-family: var(--nh-display);
+  font-stretch: 78%;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--nh-ink);
+  background: var(--nh-white);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+.nh-sv-thumb__title {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.97rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--nh-white);
+  transition: color 0.3s ease;
+}
+@media (hover: hover) {
+  .nh-sv-thumb:hover .nh-sv-thumb__art {
+    transform: translate(-3px, -3px);
+    border-color: var(--nh-turq);
+    box-shadow: 6px 6px 0 var(--nh-blue);
+  }
+  .nh-sv-thumb:hover .nh-sv-thumb__title {
+    color: var(--nh-turq);
+  }
+}
+.nh-sv-thumb:focus-visible .nh-sv-thumb__art {
+  transform: translate(-3px, -3px);
+  border-color: var(--nh-turq);
+  box-shadow: 6px 6px 0 var(--nh-blue);
+}
+
+/* ── Liste : une double-page par service ───────────────────── */
+
+.nh-sv-main {
+  position: relative;
+  z-index: 2;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(48px, 7vw, 96px)) 0 clamp(80px, 10vw, 140px);
+  background: #0e1d38;
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 100%);
+}
+.nh-sv-items {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(72px, 10vw, 150px);
+}
+.nh-sv-item {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.nh-sv-item__frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+}
+
+/* Grand numéro en filigrane : il dérive à contre-sens de la scène au défilement. */
+.nh-sv-num {
+  position: absolute;
+  z-index: 0;
+  top: -0.12em;
+  right: 0;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(7rem, 15vw, 14rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(215, 224, 234, 0.2);
+  pointer-events: none;
+  user-select: none;
+}
+.nh-sv-item[data-side='1'] .nh-sv-num {
+  right: auto;
+  left: 0;
+}
+
+.nh-sv-art {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
+  grid-column: 1 / span 7;
+}
+.nh-sv-item[data-side='1'] .nh-sv-art {
+  grid-column: 6 / span 7;
+}
+.nh-sv-art .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+  background: var(--nh-night);
+}
+/* Fond « plan » : une trame fine, comme la feuille sur laquelle la structure est dessinée. */
+.nh-sv-art__img {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(215, 224, 234, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 224, 234, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.nh-sv-art__stage {
+  position: absolute;
+  inset: 0;
+  padding: clamp(12px, 2.4vw, 36px);
+}
+
+.nh-sv-info {
+  position: relative;
+  z-index: 2;
+  grid-row: 1;
+  grid-column: 7 / span 6;
+  align-self: end;
+  margin-bottom: calc(-1 * clamp(24px, 4vw, 56px));
+}
+.nh-sv-item[data-side='1'] .nh-sv-info {
+  grid-column: 1 / span 6;
+}
+.nh-sv-info .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-sv-info__body {
+  padding: clamp(24px, 3vw, 44px) clamp(24px, 3.2vw, 48px) clamp(24px, 3vw, 44px) clamp(30px, 4vw, 56px);
+}
+.nh-sv-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 0.93rem;
+  color: var(--nh-mist);
+}
+.nh-sv-info__name {
+  margin-top: 12px;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  /* Les intitulés de services sont longs : taille plus mesurée que celle des noms de projets. */
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 0.95;
+  color: var(--nh-white);
+}
+.nh-sv-info__desc {
+  margin-top: 14px;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--nh-mist);
+}
+.nh-sv-info__label {
+  margin-top: 22px;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  color: var(--nh-turq);
+}
+.nh-sv-gives {
+  margin-top: 6px;
+}
+.nh-sv-gives li {
+  position: relative;
+  padding: 11px 0 11px 26px;
+  border-top: 1px solid var(--nh-line);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--nh-white);
+}
+/* Même barre oblique que le surtitre : un repère, pas une puce. */
+.nh-sv-gives li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 16px;
+  width: 2px;
+  height: 16px;
+  background: var(--nh-turq);
+  transform: skewX(-24deg);
+}
+.nh-sv-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 22px;
+}
+
+/* Variante claire : une fiche sur trois (rythme, comme la case de narration de l’accueil). */
+.nh-sv-info .is-bright .nh-panel__in {
+  background: var(--nh-white);
+}
+.is-bright .nh-sv-info__name,
+.is-bright .nh-sv-gives li {
+  color: var(--nh-night);
+}
+.is-bright .nh-sv-info__meta,
+.is-bright .nh-sv-info__desc {
+  color: #2a3b5c;
+}
+.is-bright .nh-sv-info__label {
+  color: #0b6d68;
+}
+.is-bright .nh-sv-gives li {
+  border-top-color: rgba(11, 22, 40, 0.18);
+}
+.is-bright .nh-sv-gives li::before {
+  background: #0b6d68;
+}
+
+/* ── Méthode ───────────────────────────────────────────────── */
+
+.nh-sv-process {
+  z-index: 3;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(56px, 8vw, 110px)) 0 clamp(64px, 8vw, 120px);
+  background: #091322;
+  clip-path: polygon(0 0, 100% 4vw, 100% 100%, 0 100%);
+}
+.nh-sv-process .nh-step__node {
+  background: #091322;
+}
+
+/* ── Écrans étroits ────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .nh-sv-head__grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-sv-item__frame {
+    grid-template-columns: 1fr;
+  }
+  .nh-sv-art,
+  .nh-sv-item[data-side='1'] .nh-sv-art {
+    grid-column: 1;
+  }
+  .nh-sv-info,
+  .nh-sv-item[data-side='1'] .nh-sv-info {
+    grid-column: 1;
+    grid-row: 2;
+    margin: calc(-1 * clamp(20px, 6vw, 36px)) clamp(8px, 4vw, 28px) 0;
+  }
+  .nh-sv-num {
+    font-size: 6rem;
+    top: -0.5em;
+    right: 12px;
+    left: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Deux vignettes très étroites deviendraient illisibles : une colonne, sans décalage. */
+  .nh-sv-sheet ul {
+    grid-template-columns: 1fr;
+  }
+  .nh-sv-sheet li:nth-child(2n) {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-sv-thumb__art,
+  .nh-sv-thumb__title {
+    transition: none;
+  }
+}

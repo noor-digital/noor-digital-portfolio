@@ -1,0 +1,311 @@
+/* ─────────────────────────────────────────────────────────────
+   Page À propos — direction « manga cinématique ».
+   Réutilise les briques de home.css (.nh, .nh-title, .nh-panel, .nh-cta…) ; tout ce qui est propre
+   à cette page est préfixé `nh-ab-`. Rythme : tête cinématique → planche → cases calmes → clôture.
+   ───────────────────────────────────────────────────────────── */
+
+/* Tête : voir heroes.css. Barre oblique réutilisée (kicker). */
+.nh-ab-slash {
+  flex: none;
+  width: 2px;
+  height: 18px;
+  background: var(--nh-turq);
+  transform: skewX(-24deg);
+}
+
+/* ── Présentation : la planche ─────────────────────────────── */
+
+.nh-ab-profile {
+  position: relative;
+  z-index: 2;
+  margin-top: -4vw;
+  /* Pas de titre dans cette section : on garde seulement la place de la diagonale. */
+  padding: calc(4vw + clamp(8px, 2vw, 28px)) 0 clamp(72px, 9vw, 130px);
+  background: #0e1d38;
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 100%);
+}
+.nh-ab-board {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-areas:
+    'l l l l l l l s s s s s'
+    't t t t t t t s s s s s';
+}
+.nh-ab-board__lead {
+  grid-area: l;
+}
+.nh-ab-board__text {
+  grid-area: t;
+}
+.nh-ab-board__sheet {
+  grid-area: s;
+}
+.nh-ab-board .nh-panel {
+  display: flex;
+}
+.nh-ab-board .nh-panel__in {
+  position: relative;
+  inset: auto;
+  flex: 1;
+  margin: 2px;
+}
+.nh-ab-board__lead .nh-panel__in {
+  background: var(--nh-white);
+  color: var(--nh-night);
+}
+.nh-ab-lead {
+  padding: clamp(28px, 3.6vw, 52px) clamp(24px, 3.6vw, 52px) clamp(28px, 3.6vw, 52px) clamp(34px, 4.6vw, 66px);
+}
+.nh-ab-lead p {
+  max-width: 36rem;
+  font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.nh-ab-text {
+  padding: clamp(24px, 3.2vw, 44px) clamp(24px, 3.6vw, 52px) clamp(24px, 3.2vw, 44px) clamp(30px, 4.4vw, 60px);
+}
+.nh-ab-text p {
+  max-width: 38rem;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: var(--nh-mist);
+}
+.nh-ab-text p + p {
+  margin-top: 16px;
+}
+.nh-ab-sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(24px, 3vw, 40px) clamp(24px, 3.4vw, 44px) clamp(24px, 3vw, 40px) clamp(34px, 4.4vw, 60px);
+}
+.nh-ab-sheet h2 {
+  margin-bottom: 6px;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: var(--nh-turq);
+}
+.nh-ab-sheet dl > div {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.8fr) 2fr;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 13px 0;
+  border-top: 1px solid var(--nh-line);
+}
+.nh-ab-sheet dt {
+  font-size: 0.95rem;
+  color: var(--nh-mist);
+}
+.nh-ab-sheet dd {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--nh-white);
+}
+.nh-ab-sheet__mark {
+  width: clamp(130px, 14vw, 210px);
+  height: auto;
+  margin-top: auto;
+  padding-top: 28px;
+  align-self: flex-end;
+}
+
+/* ── Parcours ──────────────────────────────────────────────── */
+
+.nh-ab-journey {
+  position: relative;
+  z-index: 3;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(56px, 8vw, 110px)) 0 clamp(64px, 8vw, 120px);
+  background: var(--nh-night);
+  clip-path: polygon(0 0, 100% 4vw, 100% 100%, 0 100%);
+}
+.nh-ab-frames {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(32px, 5vw, 64px);
+}
+.nh-ab-frames > li:nth-child(2) {
+  margin-top: clamp(24px, 4vw, 56px);
+}
+.nh-ab-frames .nh-panel,
+.nh-ab-grid .nh-panel {
+  /* Sans ça, la marge de 2 px de la case intérieure fusionne avec le parent et le liseré haut/bas disparaît. */
+  display: flow-root;
+}
+.nh-ab-frames .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-ab-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: clamp(230px, 22vw, 310px);
+  padding: clamp(28px, 3.6vw, 52px) clamp(24px, 3.4vw, 48px) clamp(28px, 3.6vw, 52px) clamp(30px, 4.4vw, 64px);
+}
+.nh-ab-frame__label {
+  font-size: 1rem;
+  color: var(--nh-mist);
+}
+.nh-ab-frame__title {
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 0.98;
+  color: var(--nh-white);
+}
+.nh-ab-frame__stamp {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 7px 22px 7px 16px;
+  font-weight: 700;
+  font-size: 0.97rem;
+  color: var(--nh-ink);
+  background: var(--nh-turq);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+/* ── Principes ─────────────────────────────────────────────── */
+
+.nh-ab-principles {
+  position: relative;
+  z-index: 4;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(56px, 8vw, 110px)) 0 clamp(80px, 10vw, 140px);
+  background: #0e1d38;
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 100%);
+}
+.nh-ab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(32px, 5vw, 64px);
+  padding-bottom: clamp(20px, 3vw, 48px);
+}
+.nh-ab-grid > li.is-low {
+  transform: translateY(clamp(20px, 3vw, 48px));
+}
+.nh-ab-grid .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-ab-principle__in {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(300px, 28vw, 390px);
+  padding: clamp(26px, 3vw, 44px) clamp(24px, 3vw, 44px) clamp(26px, 3vw, 44px) clamp(30px, 4vw, 56px);
+  background: var(--nh-navy);
+}
+.nh-ab-grid > li:nth-child(2) .nh-ab-principle__in {
+  background: #091322;
+}
+.nh-ab-grid > li:nth-child(3) .nh-ab-principle__in {
+  background: #17335e;
+}
+.nh-ab-principle__in.is-bright {
+  background: var(--nh-white);
+  color: var(--nh-night);
+}
+.nh-ab-principle__in h3 {
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(2.8rem, 5.2vw, 4.8rem);
+  line-height: 0.9;
+}
+.nh-ab-principle__in p {
+  max-width: 28rem;
+  margin-top: 14px;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--nh-mist);
+}
+.nh-ab-principle__in.is-bright p {
+  color: var(--nh-night);
+  font-weight: 500;
+}
+.nh-ab-glyph {
+  position: absolute;
+  top: clamp(20px, 2.4vw, 32px);
+  right: clamp(22px, 2.8vw, 40px);
+  width: clamp(72px, 8vw, 110px);
+  height: auto;
+  transition: transform 0.6s var(--nh-ease);
+}
+@media (hover: hover) {
+  .nh-ab-principle:hover .nh-ab-glyph {
+    transform: rotate(7deg) scale(1.1);
+  }
+}
+
+/* ── Clôture ───────────────────────────────────────────────── */
+
+.nh-ab-close {
+  position: relative;
+  z-index: 5;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(64px, 9vw, 130px)) 0 0;
+  background: var(--nh-night);
+  clip-path: polygon(0 0, 100% 4vw, 100% 100%, 0 100%);
+}
+.nh-ab-close__title {
+  font-size: clamp(3rem, 8.6vw, 8.6rem);
+}
+.nh-ab-close__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  margin-top: clamp(24px, 3vw, 36px);
+}
+.nh-ab-close__art {
+  height: clamp(200px, 24vw, 300px);
+  margin-top: clamp(48px, 6vw, 88px);
+  /* Le ciel du panorama naît du fond de page : pas d’arête nette. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 38%);
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .nh-ab-board {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'l' 't' 's';
+  }
+  .nh-ab-frames,
+  .nh-ab-grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-ab-frames > li:nth-child(2) {
+    margin-top: 0;
+  }
+  .nh-ab-grid {
+    padding-bottom: 0;
+  }
+  .nh-ab-grid > li.is-low {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-ab-glyph {
+    transition: none;
+  }
+}

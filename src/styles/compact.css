@@ -1,0 +1,75 @@
+/* Cartes compactes : hauteurs naturelles, espacements resserrés, grilles adaptées à chaque largeur.
+   Chargé en dernier : il ajuste les cartes existantes sans toucher à leur structure. */
+
+/* Accueil : planche de la présentation */
+.nh-board__a { min-height: clamp(280px, 30vw, 420px); }
+.nh-board__d { min-height: 0; }
+@media (max-width: 760px) {
+  .nh-board__a { min-height: 260px; }
+}
+
+/* Accueil : cartes projets */
+.nh-pcard__art { aspect-ratio: 16 / 10; }
+.nh-proj--pinned .nh-pcard__art { height: min(34vh, 260px); }
+
+/* À propos : fiche, parcours, principes */
+.nh-ab-board__sheet { align-self: start; }
+.nh-ab-sheet { height: auto; padding-block: clamp(20px, 2.4vw, 30px); }
+.nh-ab-sheet dl > div { padding-block: 10px; }
+.nh-ab-lead { padding-block: clamp(22px, 2.8vw, 36px); }
+.nh-ab-lead p { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
+.nh-ab-text { padding-block: clamp(20px, 2.4vw, 32px); }
+.nh-ab-text p { font-size: 1.02rem; line-height: 1.7; }
+.nh-ab-text p + p { margin-top: 0.8em; }
+.nh-ab-frame { min-height: 0; padding-block: clamp(20px, 2.4vw, 30px); }
+.nh-ab-principle__in { min-height: 0; padding-block: clamp(20px, 2.4vw, 30px); }
+.nh-ab-principle__in p { line-height: 1.6; }
+
+/* Contact : cartes de canaux */
+.nh-ct-card__in { min-height: 0; padding-block: clamp(20px, 2.4vw, 30px); }
+.nh-ct-card__value { padding-top: 12px; }
+
+/* Projets et services : une illustration plus basse, une fiche plus serrée, moins d'air entre les cases */
+.nh-pj-items, .nh-sv-items { gap: clamp(40px, 6vw, 80px); }
+.nh-pj-art__img, .nh-sv-art__img { aspect-ratio: 16 / 9; }
+.nh-pj-info__body, .nh-sv-info__body { padding-block: clamp(18px, 2.2vw, 28px); }
+.nh-pj-info__desc, .nh-sv-info__desc { line-height: 1.6; }
+@media (max-width: 760px) {
+  .nh-pj-art__img, .nh-sv-art__img { aspect-ratio: 16 / 8; }
+}
+
+/* ── Second passage : espacements internes ─────────────────── */
+
+/* Accueil : cases de présentation */
+.nh-narration { padding-block: clamp(20px, 2.4vw, 32px); }
+.nh-narration__bar { margin-bottom: 14px; }
+.nh-narration p { margin-top: 12px; font-size: 1rem; line-height: 1.6; }
+.nh-sheet { padding-block: clamp(20px, 2.4vw, 28px); }
+.nh-sheet dl > div { padding-block: 9px; }
+
+/* Accueil : cartes projets (description limitée à trois lignes ; le détail est sur la page Projets) */
+.nh-pcard__reveal { padding: 14px 16px 16px; }
+.nh-pcard__reveal p {
+  font-size: 0.97rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.nh-pcard__art { aspect-ratio: 16 / 9; }
+
+/* À propos : repère de la fiche plus discret */
+.nh-ab-sheet__mark { max-width: 64px; padding-top: 16px; }
+
+/* Projets et services : fiches resserrées */
+.nh-pj-art__img, .nh-sv-art__img { aspect-ratio: 2 / 1; }
+.nh-pj-info__desc, .nh-sv-info__desc { margin-top: 10px; font-size: 1rem; line-height: 1.55; }
+.nh-pj-facts { margin-top: 14px; }
+.nh-pj-facts > div { padding-block: 8px; }
+.nh-sv-gives li { padding-block: 8px; line-height: 1.45; }
+.nh-pj-links, .nh-sv-links { margin-top: 16px; }
+@media (max-width: 860px) {
+  .nh-pj-art__img, .nh-sv-art__img { aspect-ratio: 16 / 8; }
+}

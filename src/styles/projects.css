@@ -1,0 +1,400 @@
+/* ─────────────────────────────────────────────────────────────
+   Page Projets — direction « manga cinématique ».
+   Réutilise home.css (.nh, .nh-title, .nh-panel, .nh-cta, .art-back/.art-front…) et about.css
+   (clôture). Tout ce qui est propre à cette page est préfixé `nh-pj-`.
+   Rythme : tête + planche-contact → filtres → une double-page par projet → clôture.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Tête et planche-contact ───────────────────────────────── */
+
+.nh-pj-head {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(32px, 5vw, 72px)) 0 clamp(72px, 9vw, 120px);
+  background: linear-gradient(180deg, #0b1628 0%, #0e2040 100%);
+}
+.nh-pj-head__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+}
+.nh-pj-head__kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  font-size: 0.98rem;
+  color: var(--nh-mist);
+}
+.nh-pj-title {
+  font-size: clamp(3.8rem, 10.4vw, 10rem);
+  line-height: 0.86;
+}
+.nh-pj-head__sub {
+  max-width: 27rem;
+  margin-top: clamp(22px, 3vw, 34px);
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  line-height: 1.75;
+  color: var(--nh-mist);
+}
+
+.nh-pj-sheet ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.nh-pj-sheet li:nth-child(3n + 2) {
+  margin-top: clamp(14px, 2.2vw, 30px);
+}
+.nh-pj-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--nh-night);
+  border: 2px solid rgba(215, 224, 234, 0.7);
+  transition:
+    transform 0.4s var(--nh-ease),
+    border-color 0.3s ease,
+    box-shadow 0.4s var(--nh-ease);
+}
+.nh-pj-thumb .nh-art,
+.nh-pj-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nh-pj-thumb__num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 2px 14px 2px 8px;
+  font-family: var(--nh-display);
+  font-stretch: 78%;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--nh-ink);
+  background: var(--nh-white);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+@media (hover: hover) {
+  .nh-pj-thumb:hover {
+    transform: translate(-3px, -3px);
+    border-color: var(--nh-turq);
+    box-shadow: 6px 6px 0 var(--nh-blue);
+  }
+}
+.nh-pj-thumb:focus-visible {
+  transform: translate(-3px, -3px);
+  border-color: var(--nh-turq);
+  box-shadow: 6px 6px 0 var(--nh-blue);
+}
+
+/* ── Liste : filtres et double-pages ───────────────────────── */
+
+.nh-pj-list {
+  position: relative;
+  z-index: 2;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(24px, 4vw, 56px)) 0 clamp(80px, 10vw, 140px);
+  background: #0e1d38;
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 100%);
+}
+.nh-pj-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-bottom: clamp(48px, 7vw, 96px);
+}
+.nh-pj-status {
+  font-size: 0.97rem;
+  color: var(--nh-mist);
+}
+
+.nh-pj-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nh-pj-filter__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 28px;
+  font-family: var(--nh-display);
+  font-stretch: 88%;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--nh-white);
+  isolation: isolate;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.nh-pj-filter__btn::before,
+.nh-pj-filter__fill {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+.nh-pj-filter__btn::before {
+  z-index: -2;
+  background: rgba(215, 224, 234, 0.14);
+}
+.nh-pj-filter__fill {
+  z-index: -1;
+  background: var(--nh-turq);
+}
+.nh-pj-filter__btn[aria-pressed='true'] {
+  color: var(--nh-ink);
+}
+.nh-pj-filter__count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0.72;
+}
+@media (hover: hover) {
+  .nh-pj-filter__btn[aria-pressed='false']:hover::before {
+    background: rgba(215, 224, 234, 0.28);
+  }
+}
+
+.nh-pj-items {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(72px, 10vw, 150px);
+}
+.nh-pj-item {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.nh-pj-item__frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+}
+
+/* Grand numéro en filigrane : il dérive à contre-sens de l’illustration au défilement. */
+.nh-pj-num {
+  position: absolute;
+  z-index: 0;
+  top: -0.12em;
+  right: 0;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(7rem, 15vw, 14rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(215, 224, 234, 0.2);
+  pointer-events: none;
+  user-select: none;
+}
+.nh-pj-item[data-side='1'] .nh-pj-num {
+  right: auto;
+  left: 0;
+}
+/* Sur les pages inversées, la découpe oblique est à gauche : le chip de catégorie s’en écarte. */
+.nh-pj-item[data-side='1'] .nh-pcard__cat {
+  left: 4.5%;
+}
+
+.nh-pj-art {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
+  grid-column: 1 / span 8;
+}
+.nh-pj-item[data-side='1'] .nh-pj-art {
+  grid-column: 5 / span 8;
+}
+.nh-pj-art .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+  background: var(--nh-night);
+}
+.nh-pj-art__img {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+/* Plus haut que la case : la dérive verticale ne laisse jamais apparaître de bord. */
+.nh-pj-art__move {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8%;
+  bottom: -8%;
+  will-change: transform;
+}
+.nh-pj-art .nh-art,
+.nh-pj-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--nh-ease);
+}
+@media (hover: hover) {
+  .nh-pj-art:hover .nh-art,
+  .nh-pj-art:hover img {
+    transform: scale(1.06);
+  }
+}
+
+.nh-pj-info {
+  position: relative;
+  z-index: 2;
+  grid-row: 1;
+  grid-column: 7 / span 6;
+  align-self: end;
+  margin-bottom: calc(-1 * clamp(24px, 4vw, 56px));
+}
+.nh-pj-item[data-side='1'] .nh-pj-info {
+  grid-column: 1 / span 6;
+}
+.nh-pj-info .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-pj-info__body {
+  padding: clamp(24px, 3vw, 44px) clamp(24px, 3.2vw, 48px) clamp(24px, 3vw, 44px) clamp(30px, 4vw, 56px);
+}
+.nh-pj-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 0.93rem;
+  color: var(--nh-mist);
+}
+.nh-pj-info__name {
+  margin-top: 12px;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(2.3rem, 4.2vw, 4rem);
+  line-height: 0.92;
+  color: var(--nh-white);
+}
+.nh-pj-info__desc {
+  margin-top: 14px;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--nh-mist);
+}
+.nh-pj-facts {
+  margin-top: 20px;
+}
+.nh-pj-facts > div {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, 0.5fr) 3fr;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 11px 0;
+  border-top: 1px solid var(--nh-line);
+}
+.nh-pj-facts dt {
+  font-size: 0.93rem;
+  color: var(--nh-mist);
+}
+.nh-pj-facts dd {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--nh-white);
+}
+.nh-pj-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+.nh-pj-stack li {
+  padding: 3px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--nh-mist);
+  border: 1px solid rgba(215, 224, 234, 0.4);
+}
+.nh-pj-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 22px;
+}
+.nh-pj-links .nh-pcard__code {
+  font-weight: 700;
+}
+
+/* Variante claire : une fiche sur trois (rythme, comme la case de narration de l’accueil). */
+.nh-pj-info .is-bright .nh-panel__in {
+  background: var(--nh-white);
+}
+.is-bright .nh-pj-info__name,
+.is-bright .nh-pj-facts dd {
+  color: var(--nh-night);
+}
+.is-bright .nh-pj-info__meta,
+.is-bright .nh-pj-info__desc,
+.is-bright .nh-pj-facts dt {
+  color: #2a3b5c;
+}
+.is-bright .nh-pj-facts > div {
+  border-top-color: rgba(11, 22, 40, 0.18);
+}
+.is-bright .nh-pj-stack li {
+  color: var(--nh-night);
+  border-color: rgba(11, 22, 40, 0.45);
+}
+.is-bright .nh-pcard__code {
+  color: var(--nh-night);
+}
+.is-bright .nh-pcard__code:hover {
+  color: #0b6d68;
+}
+
+/* ── Écrans étroits ────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .nh-pj-head__grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-pj-item__frame {
+    grid-template-columns: 1fr;
+  }
+  .nh-pj-art,
+  .nh-pj-item[data-side='1'] .nh-pj-art {
+    grid-column: 1;
+  }
+  .nh-pj-info,
+  .nh-pj-item[data-side='1'] .nh-pj-info {
+    grid-column: 1;
+    grid-row: 2;
+    margin: calc(-1 * clamp(20px, 6vw, 36px)) clamp(8px, 4vw, 28px) 0;
+  }
+  .nh-pj-num {
+    font-size: 6rem;
+    top: -0.5em;
+    right: 12px;
+    left: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-pj-thumb,
+  .nh-pj-art .nh-art,
+  .nh-pj-art img {
+    transition: none;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "noor-digital-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NOOR DIGITAL — portfolio of a full stack web developer. La lumière qui structure.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/postbuild.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource/hanken-grotesk": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/zen-kaku-gothic-new": "^5.3.1",
+    "motion": "^14.6.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4",
+    "simple-icons": "^16.36.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.5"
+  }
+}

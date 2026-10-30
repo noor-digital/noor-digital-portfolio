@@ -1,0 +1,86 @@
+/* Typographie éditoriale : Instrument Serif · Hanken Grotesk · JetBrains Mono */
+
+.display,
+.page-title,
+h2.h2,
+.h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.page-title {
+  font-size: var(--fs-page-title);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: 1;
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.05;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--stone);
+  max-width: 32em;
+}
+
+.prose {
+  max-width: 38em;
+  color: var(--stone);
+}
+
+.prose p + p {
+  margin-top: 1.25em;
+}
+
+.small {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--stone);
+}
+
+/* Un texte long garde 65 à 70 caractères par ligne au maximum. */
+.measure {
+  max-width: 34em;
+}
+
+/* Index et libellés techniques */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--mist);
+  font-variant-numeric: tabular-nums;
+}
+
+.mono--light {
+  color: var(--stone);
+}
+
+.mono--accent {
+  color: var(--amber);
+}
+
+em.accent,
+.accent-italic {
+  font-style: italic;
+  color: var(--amber);
+}

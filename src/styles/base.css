@@ -1,0 +1,82 @@
+/* Base : fond, texte, focus, accessibilité. */
+
+html {
+  background: var(--charcoal-0);
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--charcoal-0);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  /* Empêche toute barre de défilement horizontale involontaire. */
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--on-amber);
+}
+
+/* Focus visible et cohérent sur tout le site. */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Le titre principal reçoit le focus par programme après un changement de page. */
+h1:focus {
+  outline: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Lien « Aller au contenu » */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: var(--gutter);
+  z-index: 200;
+  padding: 12px 20px;
+  background: var(--amber);
+  color: var(--on-amber);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mouvement réduit : plus de transitions CSS ni d’animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

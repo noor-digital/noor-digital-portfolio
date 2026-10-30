@@ -1,0 +1,434 @@
+/* Grille, header, menu mobile, footer. */
+
+/* ── Conteneur et grille ───────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+@media (min-width: 721px) {
+  .grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* ── Surfaces ──────────────────────────────────────────────────
+   Le site respire par niveaux de charbon, pas par gros blocs :
+   profond (0) → surface (1) → matière (2) → relief (3).
+   `--surface` est la couleur de fond courante ; `--surface-up` est le niveau
+   juste au-dessus, utilisé pour les survols et les éléments posés sur la section. */
+
+.surface--0 {
+  --surface: var(--charcoal-0);
+  --surface-up: var(--charcoal-1);
+  background: var(--surface);
+}
+
+.surface--1 {
+  --surface: var(--charcoal-1);
+  --surface-up: var(--charcoal-2);
+  background: var(--surface);
+}
+
+.surface--2 {
+  --surface: var(--charcoal-2);
+  --surface-up: var(--charcoal-3);
+  background: var(--surface);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+/* Tête des pages secondaires : surface profonde, sous le header fixe. */
+.page-top {
+  padding-top: calc(var(--header-h) + clamp(40px, 6vw, 88px));
+  padding-bottom: clamp(48px, 7vw, 104px);
+}
+
+/* Corps des pages secondaires : une surface plus claire que la tête. */
+.page-body {
+  padding-block: clamp(56px, 8vw, 120px);
+  border-top: 1px solid var(--hair);
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: var(--header-h);
+  /* En haut de page le header est transparent : la composition du Hero n’est pas coupée.
+     Dès que l’on défile, il devient une surface pleine (jamais de flou). */
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 0.4s var(--ease-out),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.header[data-scrolled='true'] {
+  background: var(--charcoal-0);
+  border-bottom-color: var(--hair);
+}
+
+.header[data-hidden='true'] {
+  transform: translateY(-100%);
+}
+
+.header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.wordmark__mark {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+.wordmark__text {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--ivory);
+  white-space: nowrap;
+}
+
+.nav {
+  display: none;
+  /* Le dernier lien s’aligne visuellement sur la marge droite de la page. */
+  margin-right: calc(-1 * clamp(8px, 1vw, 14px));
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1.2vw, 16px);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: clamp(8px, 1vw, 14px);
+  font-size: 0.9375rem;
+  color: var(--stone);
+  transition: color 0.25s ease;
+}
+
+.nav__link .mono {
+  color: var(--mist);
+  transition: color 0.25s ease;
+}
+
+/* Survol : un filet clair se pose sous le lien (le filet ambre reste réservé à la page active). */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: clamp(8px, 1vw, 14px);
+  right: clamp(8px, 1vw, 14px);
+  bottom: 6px;
+  height: 1px;
+  background: var(--hair-strong);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+  .nav__link:hover {
+    color: var(--ivory);
+  }
+  .nav__link:hover .mono {
+    color: var(--stone);
+  }
+}
+
+.nav__link[aria-current='page'] {
+  color: var(--ivory);
+}
+
+.nav__link[aria-current='page'] .mono {
+  color: var(--amber);
+}
+
+.nav__link[aria-current='page']::after {
+  display: none;
+}
+
+.nav__indicator {
+  position: absolute;
+  left: clamp(8px, 1vw, 14px);
+  right: clamp(8px, 1vw, 14px);
+  bottom: 6px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding-inline: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+
+.menu-button__bars {
+  display: grid;
+  gap: 5px;
+  width: 18px;
+}
+
+.menu-button__bars span {
+  display: block;
+  height: 1px;
+  background: currentColor;
+}
+
+.menu-button__bars span:last-child {
+  width: 60%;
+  justify-self: end;
+}
+
+@media (min-width: 900px) {
+  .nav {
+    display: block;
+  }
+  .menu-button {
+    display: none;
+  }
+}
+
+/* Balayage de la transition entre pages : un filet ambre sous le header. */
+main {
+  min-height: 70vh;
+}
+
+/* ── Menu mobile ───────────────────────────────────────────── */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: var(--charcoal-0);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+  flex: none;
+  border-bottom: 1px solid var(--hair);
+}
+
+.mobile-menu__close {
+  min-height: 44px;
+  padding-inline: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+
+.mobile-menu__list {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--s-4);
+}
+
+.mobile-menu__item {
+  position: relative;
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-block: clamp(14px, 2.6vh, 24px);
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 11vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+.mobile-menu__link .mono {
+  flex: none;
+  width: 2.2em;
+}
+
+.mobile-menu__link[aria-current='page'] {
+  color: var(--amber);
+}
+
+.mobile-menu__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: 1px;
+  background: var(--hair-strong);
+  transform-origin: left center;
+}
+
+.mobile-menu__foot {
+  flex: none;
+  display: grid;
+  gap: var(--s-3);
+  padding-block: var(--s-4) calc(var(--s-4) + env(safe-area-inset-bottom));
+}
+
+.mobile-menu__foot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+
+.footer {
+  padding-block: clamp(56px, 8vw, 104px) var(--s-4);
+}
+
+.footer__top {
+  row-gap: clamp(40px, 6vw, 64px);
+}
+
+.footer__brand {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.footer__signature {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.02;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+.footer__owner {
+  display: grid;
+  gap: 2px;
+}
+
+.footer__owner strong {
+  font-weight: 500;
+  color: var(--ivory);
+}
+
+.footer__col {
+  grid-column: 1 / -1;
+}
+
+.footer__col h2 {
+  margin-bottom: var(--s-2);
+}
+
+.footer__list {
+  display: grid;
+  gap: 2px;
+}
+
+.footer__list a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 40px;
+  align-items: center;
+  color: var(--stone);
+  transition: color 0.25s ease;
+}
+
+.footer__list a:hover {
+  color: var(--ivory);
+}
+
+.footer__list .mono {
+  flex: none;
+  width: 1.6em;
+}
+
+/* Sur mobile, la navigation se range sur deux colonnes pour ne pas allonger la page. */
+.footer__list--nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+.footer__bottom {
+  margin-top: clamp(48px, 7vw, 88px);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hair);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-1) var(--s-3);
+}
+
+@media (min-width: 721px) {
+  .footer__brand {
+    grid-column: 1 / span 6;
+  }
+  .footer__col--nav {
+    grid-column: 8 / span 2;
+  }
+  .footer__col--contact {
+    grid-column: 10 / span 3;
+  }
+  .footer__list--nav {
+    grid-template-columns: 1fr;
+  }
+}

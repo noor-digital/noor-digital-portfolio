@@ -1,0 +1,485 @@
+/* ─────────────────────────────────────────────────────────────
+   Page Contact — direction « manga cinématique ».
+   Réutilise home.css (.nh, .nh-title, .nh-panel, .nh-cta…) et about.css (clôture, barre oblique).
+   Tout ce qui est propre à cette page est préfixé `nh-ct-`.
+   Rythme : tête (phrase + fiche à remplir) → autres canaux → clôture.
+   ───────────────────────────────────────────────────────────── */
+
+.nh-ct-panel {
+  display: flow-root;
+}
+.nh-ct-panel .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-ct-panel__body {
+  padding: clamp(26px, 3.4vw, 48px) clamp(22px, 3.2vw, 46px) clamp(26px, 3.4vw, 48px) clamp(30px, 4.4vw, 62px);
+}
+
+/* ── Fiche ─────────────────────────────────────────────────── */
+
+.nh-ct-form__title {
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 0.95;
+  color: var(--nh-white);
+}
+.nh-ct-form__note {
+  max-width: 34rem;
+  margin: 12px 0 8px;
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: var(--nh-mist);
+}
+.nh-ct-field {
+  margin-top: 18px;
+}
+.nh-ct-field label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--nh-white);
+}
+/* Au focus, la barre oblique de la marque s’ouvre devant l’intitulé : on voit où l’on écrit. */
+.nh-ct-field label::before {
+  content: '';
+  flex: none;
+  width: 0;
+  height: 16px;
+  margin-right: 0;
+  background: var(--nh-turq);
+  transform: skewX(-24deg);
+  transition:
+    width 0.3s var(--nh-ease),
+    margin-right 0.3s var(--nh-ease);
+}
+.nh-ct-field:focus-within label::before {
+  width: 2px;
+  margin-right: 10px;
+}
+.nh-ct-field input,
+.nh-ct-field select,
+.nh-ct-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 1rem; /* 16 px minimum : pas de zoom automatique sur iOS */
+  line-height: 1.5;
+  color: var(--nh-white);
+  background-color: rgba(5, 11, 22, 0.55);
+  border: 2px solid rgba(215, 224, 234, 0.4);
+  border-radius: 0;
+  color-scheme: dark;
+  transition: border-color 0.25s ease;
+}
+.nh-ct-field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+.nh-ct-field select {
+  padding-right: 42px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2316B8B0' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+.nh-ct-field input:focus,
+.nh-ct-field select:focus,
+.nh-ct-field textarea:focus {
+  border-color: var(--nh-turq);
+}
+.nh-ct-field :focus-visible {
+  outline-offset: 2px;
+}
+.nh-ct-field [aria-invalid='true'] {
+  border-color: #ffb4a8;
+}
+.nh-ct-hint {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--nh-mist);
+}
+/* L’erreur est dite par le texte (et la bordure), jamais par la couleur seule. */
+.nh-ct-error {
+  animation: nh-ct-pop 0.35s var(--nh-ease);
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffb4a8;
+}
+.nh-ct-form__actions {
+  margin-top: 26px;
+}
+
+/* Compteur de caractères, à droite de l’aide. */
+.nh-ct-hint--row {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+.nh-ct-count {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+.nh-ct-count[data-near='true'] {
+  font-weight: 700;
+  color: var(--nh-white);
+}
+
+/* Avancement de la fiche. */
+.nh-ct-meter {
+  margin-top: 16px;
+}
+.nh-ct-meter__track {
+  display: block;
+  height: 4px;
+  background: var(--nh-line);
+}
+.nh-ct-meter__bar {
+  display: block;
+  height: 100%;
+  background: var(--nh-turq);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.nh-ct-meter__text {
+  margin-top: 8px;
+  font-size: 0.93rem;
+  color: var(--nh-mist);
+}
+.nh-ct-meter__text[data-ready='true'] {
+  font-weight: 700;
+  color: var(--nh-turq);
+}
+
+/* État « e-mail préparé » : le conteneur s’ouvre en hauteur (motion), l’habillage est sur l’intérieur. */
+.nh-ct-ready {
+  overflow: hidden;
+}
+.nh-ct-ready__in {
+  margin-top: 26px;
+  padding: 18px 20px 16px 22px;
+  background: rgba(5, 11, 22, 0.45);
+  border-left: 3px solid var(--nh-turq);
+}
+.nh-ct-ready__in > * + * {
+  margin-top: 12px;
+}
+.nh-ct-ready__title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--nh-white);
+}
+.nh-ct-ready__text {
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: var(--nh-mist);
+}
+.nh-ct-ready__meta > div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 4px 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--nh-line);
+  font-size: 0.97rem;
+}
+.nh-ct-ready__meta dt {
+  color: var(--nh-mist);
+}
+.nh-ct-ready__meta dd {
+  font-weight: 700;
+  color: var(--nh-white);
+  overflow-wrap: anywhere;
+}
+.nh-ct-ready__body {
+  max-height: 220px;
+  overflow: auto;
+  padding: 12px 14px;
+  font-family: var(--nh-text);
+  font-size: 0.93rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--nh-white);
+  background: rgba(5, 11, 22, 0.55);
+  border: 1px solid var(--nh-line);
+}
+.nh-ct-ready__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+
+/* Lien d’action (ancre ou bouton) : souligné, lisible, zone de toucher confortable. */
+.nh-ct-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  font: inherit;
+  font-size: 0.99rem;
+  font-weight: 700;
+  color: var(--nh-turq);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+@media (hover: hover) {
+  .nh-ct-link:hover {
+    color: var(--nh-white);
+  }
+}
+.nh-ct-copystate {
+  min-height: 1.5em;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--nh-turq);
+}
+.nh-ct-copystate[data-kind='error'] {
+  color: #ffb4a8;
+}
+
+/* ── Autres canaux ─────────────────────────────────────────── */
+
+.nh-ct-channels {
+  position: relative;
+  z-index: 2;
+  margin-top: -4vw;
+  padding: calc(4vw + clamp(56px, 8vw, 110px)) 0 clamp(72px, 9vw, 130px);
+  background: #0e1d38;
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 100%);
+}
+.nh-ct-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(32px, 5vw, 64px);
+}
+.nh-ct-grid > li.is-wide {
+  grid-column: 1 / -1;
+}
+.nh-ct-grid .nh-panel {
+  display: flow-root;
+  height: 100%;
+}
+.nh-ct-grid .nh-panel__in {
+  position: relative;
+  inset: auto;
+  margin: 2px;
+}
+.nh-ct-card__in {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: clamp(190px, 18vw, 250px);
+  padding: clamp(26px, 3vw, 44px) clamp(24px, 3vw, 44px) clamp(24px, 3vw, 40px) clamp(30px, 4vw, 56px);
+  background: var(--nh-navy);
+}
+.nh-ct-grid > li:nth-child(3) .nh-ct-card__in {
+  background: #17335e;
+}
+.nh-ct-card__in.is-bright {
+  background: var(--nh-white);
+  color: var(--nh-night);
+}
+.nh-ct-card__icon {
+  position: absolute;
+  top: clamp(22px, 2.6vw, 36px);
+  right: clamp(22px, 2.8vw, 40px);
+  opacity: 0.9;
+}
+.nh-ct-card__label {
+  font-size: 1rem;
+  color: var(--nh-mist);
+}
+.is-bright .nh-ct-card__label {
+  color: #2a3b5c;
+}
+.nh-ct-card__value {
+  margin-top: auto;
+  padding-top: 22px;
+  padding-right: 8px;
+  font-family: var(--nh-text);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  color: var(--nh-white);
+}
+.is-wide .nh-ct-card__value {
+  font-size: clamp(1.4rem, 3.4vw, 3rem);
+}
+.is-bright .nh-ct-card__value {
+  color: var(--nh-night);
+}
+a.nh-ct-card__value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+/* Le lien couvre toute la case : on clique n’importe où dessus. */
+a.nh-ct-card__value::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.nh-ct-card__arrow {
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  transition: transform 0.4s var(--nh-ease);
+}
+@media (hover: hover) {
+  .nh-ct-card__in:hover .nh-ct-card__arrow {
+    transform: translate(4px, -4px);
+  }
+}
+.nh-ct-card__copy {
+  position: relative; /* au-dessus du lien étendu */
+  z-index: 2;
+  margin-top: 8px;
+}
+.is-bright .nh-ct-card__copy {
+  color: #0b6d68;
+}
+.nh-ct-card__clock {
+  margin-top: 10px;
+}
+.nh-ct-card__clock .mono {
+  font-family: var(--nh-text);
+  font-size: 0.97rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--nh-mist);
+}
+
+/* ── Enveloppe vivante (tête de page) ──────────────────────── */
+
+.nh-ct-art {
+  width: min(100%, 30rem);
+  margin-top: clamp(28px, 4vw, 56px);
+  --px: 0;
+  --py: 0;
+}
+.nh-ct-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+/* Parallaxe : les rayons et les repères se déplacent en sens inverse du pointeur. */
+.nh-ct-art__rays {
+  transform: translate(calc(var(--px) * 10px), calc(var(--py) * 8px));
+  transition: transform 0.5s var(--nh-ease);
+}
+.nh-ct-art__dots {
+  transform: translate(calc(var(--px) * -14px), calc(var(--py) * -10px));
+  transition: transform 0.5s var(--nh-ease);
+}
+.nh-ct-float {
+  animation: nh-ct-float 6s ease-in-out infinite;
+}
+@keyframes nh-ct-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes nh-ct-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ── Cases : inclinaison et retours ────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .nh-ct-grid > li {
+    --tx: 0;
+    --ty: 0;
+    transform: perspective(1000px) rotateX(calc(var(--ty) * -2.5deg)) rotateY(calc(var(--tx) * 3deg));
+    transition: transform 0.35s var(--nh-ease);
+  }
+}
+.nh-ct-card__copy[data-copied='true'] {
+  color: var(--nh-turq);
+}
+.is-bright .nh-ct-card__copy[data-copied='true'] {
+  color: #0b6d68;
+}
+
+/* Arc de lumière de Dakar. */
+.nh-ct-sun {
+  margin-top: 14px;
+  width: min(100%, 12.5rem);
+}
+.nh-ct-sun svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.nh-ct-sun p {
+  margin-top: 8px;
+  font-size: 0.93rem;
+  color: var(--nh-mist);
+}
+
+/* ── Écrans étroits ────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .nh-ct-head__grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-ct-head__copy {
+    padding-top: 0;
+  }
+  .nh-ct-grid {
+    grid-template-columns: 1fr;
+  }
+  .nh-ct-card__icon {
+    width: 32px;
+    height: 32px;
+  }
+  /* Sur mobile l’enveloppe reste, plus petite : la fiche doit rester proche du titre. */
+  .nh-ct-art {
+    width: min(100%, 17rem);
+    margin-top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-ct-float,
+  .nh-ct-error {
+    animation: none;
+  }
+  .nh-ct-art__rays,
+  .nh-ct-art__dots,
+  .nh-ct-grid > li,
+  .nh-ct-field label::before,
+  .nh-ct-card__arrow,
+  .nh-ct-link,
+  .nh-ct-field input,
+  .nh-ct-field select,
+  .nh-ct-field textarea {
+    transition: none;
+  }
+}

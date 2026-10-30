@@ -1,0 +1,69 @@
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — palette officielle, typographie, espacements.
+   Toutes les couleurs du site viennent d’ici.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette */
+  /* Les quatre charbons sont des SURFACES (voir « Surfaces » dans layout.css) :
+     0 profond (hero, footer, menu) · 1 surface (sections) · 2 matière (plaques, blocs) · 3 relief (hover, actif). */
+  --charcoal-0: #0e0f11;
+  --charcoal-1: #141518;
+  --charcoal-2: #1b1c20;
+  --charcoal-3: #24262b;
+  --ivory: #ece6da; /* texte principal */
+  --stone: #b5b0a5; /* texte secondaire */
+  --mist: #8a867d; /* métadonnées */
+  --amber: #e9b44c; /* lumière — unique accent */
+  --hair: rgba(236, 230, 218, 0.1); /* filet discret */
+  --hair-strong: rgba(236, 230, 218, 0.22); /* filet renforcé */
+
+  /* Surface courante : chaque section la redéfinit (classes .surface--0 à .surface--3).
+     Les éléments posés dessus (repères, survols) s’y adaptent sans connaître leur contexte. */
+  --surface: var(--charcoal-0);
+  --surface-up: var(--charcoal-1);
+
+  /* Texte posé sur l’ambre */
+  --on-amber: #0e0f11;
+
+  /* Typographie */
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', serif;
+  --font-sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Échelle : 1 display · 2 titre de section · 3 titre de projet/service · 4 description · 5 métadonnées */
+  --fs-display: clamp(3.25rem, 11vw, 11rem);
+  --fs-page-title: clamp(3rem, 8.2vw, 7.5rem);
+  --fs-h2: clamp(2rem, 4.4vw, 3.75rem);
+  --fs-h3: clamp(1.625rem, 2.5vw, 2.375rem);
+  --fs-lead: clamp(1.1875rem, 1.6vw, 1.5rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 1rem;
+  --fs-mono: 0.78125rem;
+
+  /* Espacements — base 8 px */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 40px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-10: 80px;
+  --s-12: 96px;
+  --s-16: 128px;
+  --section-y: clamp(72px, 10vw, 144px);
+
+  /* Mise en page */
+  --max-width: 1440px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --col-gap: clamp(12px, 1.7vw, 24px);
+  --header-h: 72px;
+  /* Les lignes survolées/ouvertes débordent de cette valeur de chaque côté de la colonne de texte :
+     le texte reste aligné au repos, la surface le dépasse au survol. */
+  --row-bleed: clamp(12px, 2vw, 28px);
+
+  /* Mouvement */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
