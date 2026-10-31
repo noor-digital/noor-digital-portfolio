@@ -27,7 +27,7 @@ export default function Cta({ to, href, external = false, onClick, variant = 'pr
   if (href) {
     const extra = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
     return (
-      <a href={href} className={className} {...extra} {...rest}>
+      <a href={href} className={className} onClick={onClick} {...extra} {...rest}>
         <Inner>{children}</Inner>
         {external && <span className="visually-hidden"> (s’ouvre dans un nouvel onglet)</span>}
       </a>

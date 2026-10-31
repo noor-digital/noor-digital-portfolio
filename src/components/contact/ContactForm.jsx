@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { EASE } from '../../lib/motion.js';
 import { contactCopy, contactPage, site } from '../../data/site.js';
@@ -36,13 +37,22 @@ export default function ContactForm({ onState }) {
   const { form: t } = contactPage;
   const reduce = useReducedMotion();
   const uid = useId();
-  const [values, setValues] = useState(EMPTY);
+  // /contact?service=<id> (boutons de la page Services) : le type de projet est déjà choisi.
+  // Un identifiant inconnu est ignoré ; le visiteur peut toujours modifier la sélection.
+  const [searchParams] = useSearchParams();
+  const presetService = services.find((service) => service.id === searchParams.get('service'));
+  const [values, setValues] = useState(() => ({ ...EMPTY, type: presetService ? presetService.title : '' }));
   const [errors, setErrors] = useState({});
   const [prepared, setPrepared] = useState(null); // { href, subject, body }
   const [copyState, setCopyState] = useState({ kind: 'idle', text: '' });
 
   const nameRef = useRef(null);
   const messageRef = useRef(null);
+
+  // Si l’adresse change sans quitter la page (autre bouton « service »), la sélection suit.
+  useEffect(() => {
+    if (presetService) setValues((current) => ({ ...current, type: presetService.title }));
+  }, [presetService]);
 
   const id = (key) => `${uid}-${key}`;
   const options = [...services.map((service) => service.title), t.typeOther];

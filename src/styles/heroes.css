@@ -1,16 +1,14 @@
-/* Heroes des pages À propos et Contact. Même langage que l'accueil (barre oblique, titre italique,
+/* Hero de la page À propos. Même langage que l'accueil (barre oblique, titre italique,
    seconde ligne « au trait »), mais compacts : le texte d'abord, l'illustration en soutien. */
 
-.nh-ab-hero,
-.nh-ct-hero {
+.nh-ab-hero {
   position: relative;
   overflow: hidden;
   padding: calc(var(--header-h) + clamp(28px, 5vw, 64px)) 0 clamp(64px, 8vw, 104px);
   background: linear-gradient(180deg, #0b1628 0%, #0e2040 100%);
 }
 /* Fines lignes de vitesse en fond : une par page, orientées différemment. */
-.nh-ab-hero::before,
-.nh-ct-hero::before {
+.nh-ab-hero::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -21,12 +19,7 @@
   background: repeating-linear-gradient(115deg, transparent 0 46px, rgba(215, 224, 234, 0.045) 46px 47px);
   mask-image: linear-gradient(90deg, #000, transparent 70%);
 }
-.nh-ct-hero::before {
-  background: repeating-linear-gradient(72deg, transparent 0 54px, rgba(22, 184, 176, 0.07) 54px 55px);
-  mask-image: linear-gradient(270deg, #000, transparent 75%);
-}
-.nh-ab-hero .container,
-.nh-ct-hero .container {
+.nh-ab-hero .container {
   position: relative;
   z-index: 1;
 }
@@ -101,71 +94,8 @@
   inset: 2px;
 }
 
-/* ── Contact ───────────────────────────────────────────────── */
-.nh-ct-hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  align-items: start;
-  gap: clamp(28px, 4vw, 72px);
-}
-.nh-ct-hero__sub {
-  max-width: 27rem;
-  margin-top: clamp(18px, 2.4vw, 28px);
-  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
-  line-height: 1.65;
-  color: var(--nh-mist);
-}
-.nh-ct-flow {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: clamp(24px, 3vw, 36px);
-  padding-top: 18px;
-  border-top: 1px solid var(--nh-line);
-}
-.nh-ct-flow__label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--nh-turq);
-}
-.nh-ct-steps {
-  display: grid;
-  gap: 10px;
-  margin-top: 12px;
-  counter-reset: s;
-}
-.nh-ct-steps li {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  font-size: 1rem;
-  line-height: 1.4;
-  color: var(--nh-white);
-  counter-increment: s;
-}
-.nh-ct-steps li::before {
-  content: counter(s);
-  flex: none;
-  font-family: var(--nh-display);
-  font-stretch: 78%;
-  font-weight: 800;
-  font-style: italic;
-  font-size: 1.35rem;
-  color: var(--nh-turq);
-}
-.nh-ct-flow__art {
-  flex: none;
-  width: clamp(110px, 12vw, 150px);
-}
-.nh-ct-flow__art .nh-ct-art {
-  width: 100%;
-  margin-top: 0;
-}
-
 @media (max-width: 860px) {
-  .nh-ab-hero__grid,
-  .nh-ct-hero__grid {
+  .nh-ab-hero__grid {
     grid-template-columns: 1fr;
   }
   .nh-ab-hero__art {
@@ -190,9 +120,4 @@
   .nh-ab-creds > div + div {
     border-top: 1px solid var(--nh-line);
   }
-}
-
-/* Contact : « VOTRE PROJET. » est la ligne la plus longue, la taille tient dans la colonne de gauche. */
-.nh-ct-hero .nh-hero-title {
-  font-size: clamp(2.6rem, 5.3vw, 4.9rem);
 }

@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Permissions minimales pour publier sur GitHub Pages. Aucun secret n’est nécessaire.
+# Permissions minimales pour publier sur GitHub Pages. Aucun secret n’est nécessaire (les variables du formulaire sont publiques).
 permissions:
   contents: read
   pages: write
@@ -34,6 +34,11 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # Variables PUBLIQUES du dépôt (Settings → Secrets and variables → Actions → onglet « Variables »).
+          # Si elles ne sont pas définies, le formulaire de contact propose la messagerie à la place de l'envoi direct.
+          VITE_FORM_ENDPOINT: ${{ vars.VITE_FORM_ENDPOINT }}
+          VITE_FORM_ACCESS_KEY: ${{ vars.VITE_FORM_ACCESS_KEY }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

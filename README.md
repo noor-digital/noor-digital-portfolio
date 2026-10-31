@@ -252,3 +252,29 @@ The trade-off: the page content itself is still rendered by JavaScript (there is
 ## License
 
 Source code and content © NOOR DIGITAL. License to be defined by the owner.
+
+## Page Services (refonte, étape 2)
+
+- Composants : `src/components/services/` (ServicesHero, ServicesStack, ServiceCard, WhyMe, ServicesProcess, WorkTypes, AfterContact, Faq, Testimonials, FloatingCta…). Styles : `src/styles/services.css` (préfixe `nh-sv-`).
+- Textes : `servicesPage` dans `src/data/site.js`. Services, technologies et méthode : `src/data/services.js`. Témoignages : `src/data/testimonials.js` (section masquée tant que la liste est vide).
+- Aucune mention financière sur la page (cartes, FAQ, méta, données structurées).
+- Les boutons « Discuter de ce service » mènent à `/contact?service=<id>` : le formulaire pré-sélectionne le service.
+- Données structurées (JSON-LD, sans champ financier) injectées dans `dist/services/index.html` par `scripts/postbuild.js`.
+
+## Page Contact (refonte, étape 3)
+
+- Composants : `src/components/contact/` (ContactHero, QuickActions, ContactWizard + StepService / StepProject / StepDetails / SuccessState / FallbackState, ReassurancePanel, FormSection, WhereWhen, ContactFaq, ContactTestimonials, OtherChannels, ContactFloatingCta). Styles : `src/styles/contact.css` (préfixe `nh-ct-`).
+- Textes : `contactPage` dans `src/data/site.js`. Canaux et engagements : objet `site` (un champ à `null` reste masqué : `whatsapp`, `linkedin`, `availability`, `responseTime`). Témoignages : `src/data/testimonials.js` (section masquée tant que la liste est vide).
+- Le formulaire accepte `/contact?service=<id>` (boutons de la page Services) et pré-coche le besoin.
+- Aucune mention financière sur la page.
+
+### Formulaire de contact : envoi réel sans backend
+
+Le site est statique (GitHub Pages) : l'envoi passe par un service de formulaires.
+
+1. **Formspree (recommandé).** Créez un compte gratuit sur formspree.io, cliquez sur « New form », donnez votre adresse e-mail de réception, puis copiez l'URL du formulaire (`https://formspree.io/f/xxxxxxxx`). Confirmez l'e-mail de validation que Formspree envoie.
+2. **Web3Forms (alternative).** Sur web3forms.com, saisissez votre e-mail pour recevoir une clé d'accès publique. L'endpoint est `https://api.web3forms.com/submit` et la clé va dans `VITE_FORM_ACCESS_KEY`.
+3. **En local :** copiez `.env.example` en `.env.local` et renseignez `VITE_FORM_ENDPOINT` (puis relancez `npm run dev`).
+4. **En production (GitHub Pages) :** dans le dépôt, *Settings → Secrets and variables → Actions → onglet **Variables** → New repository variable* : créez `VITE_FORM_ENDPOINT` (et `VITE_FORM_ACCESS_KEY` pour Web3Forms). Le workflow `.github/workflows` les lit au build. Relancez ensuite le déploiement (push ou « Run workflow »).
+
+Ces valeurs sont **publiques par nature** (elles finissent dans le JavaScript du site) : elles ne permettent que d'envoyer un message vers votre boîte. Ne mettez jamais de secret dans une variable `VITE_*`. Sans endpoint, ou si l'envoi échoue, le formulaire le dit clairement et propose « Ouvrir ma messagerie » (mailto prérempli) et « Copier le message » : il n'affiche « Message envoyé » que si le service a confirmé la réception.

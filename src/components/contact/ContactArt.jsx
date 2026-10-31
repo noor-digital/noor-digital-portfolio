@@ -1,139 +1,129 @@
-import { useRef } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
-import { EASE } from '../../lib/motion.js';
+import { motion, useTransform } from 'motion/react';
+import { rng } from '../../lib/prng.js';
 
-// Une enveloppe dessinée au trait, qui réagit à la fiche : plus le visiteur la remplit, plus la lettre
-// sort de l’enveloppe, se couvre de lignes, et plus les rayons de lumière se dessinent. Quand l’e-mail est
-// prêt, un tampon se pose. L’illustration montre l’avancement réel de la fiche, elle ne décore pas.
-// Le pointeur déplace les plans en sens inverse (parallaxe) ; tout est décoratif (aria-hidden).
+// Décor nocturne de Dakar, en bas du hero : deux plans de silhouettes d’immeubles aux fenêtres allumées,
+// une lune en croissant, des étoiles et le phare des Mamelles dont le faisceau balaie doucement la scène
+// (« la lumière qui structure »). La scène est générée avec une graine fixe : identique à chaque chargement.
+// Décoratif (aria-hidden). Les plans se décalent avec le curseur (parallaxe) ; seuls transform et opacity bougent.
 
-const INK = '#F1F5F9';
-const TURQ = '#16B8B0';
-const BLUE = '#2563EB';
-const PAPER = '#0D1C36';
+const W = 1440;
+const H = 360;
 
-const clamp = (v) => Math.min(1, Math.max(0, v));
-
-// Sept rayons qui partent de l’ouverture de l’enveloppe.
-const RAYS = [-62, -40, -20, 0, 20, 40, 62].map((deg) => {
-  const r = (deg * Math.PI) / 180;
-  const from = 74;
-  const to = 176 - Math.abs(deg) * 0.7;
-  const x = (d) => (320 + Math.sin(r) * d).toFixed(1);
-  const y = (d) => (196 - Math.cos(r) * d).toFixed(1);
-  return `M${x(from)} ${y(from)}L${x(to)} ${y(to)}`;
-});
-
-function Draw({ d, delay = 0, color = INK, w = 2.6, fill = 'none' }) {
-  const reduce = useReducedMotion();
-  return (
-    <motion.path
-      d={d}
-      fill={fill}
-      stroke={color}
-      strokeWidth={w}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
-      initial={reduce ? false : { pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: 0.9, delay, ease: EASE }}
-    />
-  );
+function skyline(seed, { minW, maxW, minH, maxH, base }) {
+  const rand = rng(seed);
+  const items = [];
+  let x = -20;
+  while (x < W + 20) {
+    const w = Math.round(minW + rand() * (maxW - minW));
+    const h = Math.round(minH + rand() * (maxH - minH));
+    items.push({ x, w, h, y: base - h });
+    x += w + Math.round(rand() * 8);
+  }
+  return items;
 }
 
-export default function ContactArt({ progress = 0, prepared = false }) {
-  const reduce = useReducedMotion();
-  const ref = useRef(null);
+const FAR = skyline(7, { minW: 36, maxW: 84, minH: 50, maxH: 150, base: H });
+const NEAR = skyline(21, { minW: 48, maxW: 110, minH: 80, maxH: 190, base: H });
 
-  function onMove(event) {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--px', (((event.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
-    el.style.setProperty('--py', (((event.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
-  }
-  function onLeave() {
-    ref.current?.style.setProperty('--px', '0');
-    ref.current?.style.setProperty('--py', '0');
-  }
+// Fenêtres : une petite grille par immeuble du plan proche ; quelques-unes scintillent.
+const windows = (() => {
+  const rand = rng(55);
+  const list = [];
+  NEAR.forEach((b, bi) => {
+    for (let row = 0; row < Math.floor((b.h - 18) / 22); row += 1) {
+      for (let col = 0; col < Math.floor((b.w - 12) / 18); col += 1) {
+        if (rand() < 0.2) {
+          list.push({
+            key: `${bi}-${row}-${col}`,
+            x: b.x + 10 + col * 18,
+            y: b.y + 12 + row * 22,
+            blink: rand() < 0.1,
+            delay: (rand() * 6).toFixed(2),
+            warm: rand() < 0.25,
+          });
+        }
+      }
+    }
+  });
+  return list;
+})();
 
-  const spring = reduce ? { duration: 0 } : { type: 'spring', stiffness: 90, damping: 18 };
+const STARS = (() => {
+  const rand = rng(99);
+  return Array.from({ length: 36 }, (_, i) => ({
+    key: i,
+    x: Math.round(rand() * W),
+    y: Math.round(rand() * 150),
+    r: rand() < 0.2 ? 1.6 : 1,
+    delay: (rand() * 5).toFixed(2),
+  }));
+})();
 
+export default function ContactArt({ mx, parallax }) {
+  const farX = useTransform(mx, [-0.5, 0.5], [-8, 8]);
+  const nearX = useTransform(mx, [-0.5, 0.5], [-22, 22]);
   return (
-    <div className="nh-ct-art" ref={ref} aria-hidden="true" onPointerMove={onMove} onPointerLeave={onLeave}>
-      <svg viewBox="0 0 640 420" preserveAspectRatio="xMidYMid meet" focusable="false">
-        {/* Plan arrière : les rayons, qui se dessinent avec l’avancement. */}
-        <g className="nh-ct-art__rays">
-          {RAYS.map((d, i) => (
-            <motion.path
-              key={d}
-              d={d}
-              fill="none"
-              stroke={i === 3 ? TURQ : INK}
-              strokeWidth={i === 3 ? 4 : 2.4}
-              strokeLinecap="square"
-              initial={false}
-              animate={{ pathLength: progress, opacity: progress > 0.02 ? 1 : 0 }}
-              transition={{ ...spring, delay: reduce ? 0 : i * 0.03 }}
-            />
-          ))}
-        </g>
+    <div className="nh-ct-art" aria-hidden="true">
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMax slice" focusable="false">
+        <defs>
+          <linearGradient id="ct-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#0b1628" stopOpacity="0" />
+            <stop offset="1" stopColor="#0e2040" stopOpacity="0.9" />
+          </linearGradient>
+          <linearGradient id="ct-beam" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#F1F5F9" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#16B8B0" stopOpacity="0" />
+          </linearGradient>
+          <radialGradient id="ct-moon" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#D7E0EA" stopOpacity="0.35" />
+            <stop offset="1" stopColor="#D7E0EA" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-        {/* Rabat arrière, ouvert */}
-        <Draw d="M120 215L320 85L520 215" delay={0.1} fill={BLUE} />
+        <rect width={W} height={H} fill="url(#ct-sky)" />
 
-        {/* La lettre : elle monte avec l’avancement, ses lignes se tracent l’une après l’autre. */}
-        <motion.g initial={false} animate={{ y: -clamp(progress) * 125 }} transition={spring}>
-          <rect x="220" y="215" width="200" height="150" fill={INK} fillOpacity="0.12" stroke={INK} strokeWidth="2.6" />
-          {[0, 1, 2, 3, 4].map((i) => (
-            <motion.path
-              key={i}
-              d={`M242 ${246 + i * 22}H${i === 4 ? 320 : 396}`}
-              fill="none"
-              stroke={i === 0 ? TURQ : INK}
-              strokeWidth={i === 0 ? 5 : 3}
-              strokeLinecap="square"
-              initial={false}
-              animate={{ pathLength: clamp(progress * 6 - i) }}
-              transition={{ duration: reduce ? 0 : 0.35, ease: EASE }}
-            />
+        {STARS.map((s) => (
+          <circle key={s.key} className="nh-ct-star" cx={s.x} cy={s.y} r={s.r} fill="#D7E0EA" style={{ animationDelay: `${s.delay}s` }} />
+        ))}
+
+        {/* Lune en croissant */}
+        <circle cx="1180" cy="86" r="70" fill="url(#ct-moon)" />
+        <circle cx="1180" cy="86" r="22" fill="#D7E0EA" />
+        <circle cx="1190" cy="80" r="20" fill="#0b1628" />
+
+        {/* Plan lointain */}
+        <motion.g style={parallax ? { x: farX } : undefined}>
+          {FAR.map((b) => (
+            <rect key={b.x} x={b.x} y={b.y} width={b.w} height={b.h + 2} fill="#10223f" />
           ))}
         </motion.g>
 
-        {/* Face avant de l’enveloppe : opaque, elle cache la lettre qui n’est pas encore sortie. */}
-        <rect x="120" y="215" width="400" height="160" fill={PAPER} />
-        <Draw d="M120 215H520V375H120Z" />
-        <Draw d="M120 215L320 330L520 215" delay={0.3} />
-        <Draw d="M120 375L250 290M520 375L390 290" delay={0.5} w={2} />
-
-        {/* Plan avant : de petits repères qui flottent (CSS, coupés avec « mouvement réduit »). */}
-        <g className="nh-ct-art__dots">
-          <rect className="nh-ct-float" x="70" y="120" width="12" height="12" fill={TURQ} style={{ animationDelay: '0s' }} />
-          <rect className="nh-ct-float" x="560" y="250" width="10" height="10" fill={INK} fillOpacity="0.7" style={{ animationDelay: '-1.4s' }} />
-          <rect className="nh-ct-float" x="96" y="320" width="8" height="8" fill={BLUE} style={{ animationDelay: '-2.6s' }} />
+        {/* Phare des Mamelles : faisceau qui balaie lentement */}
+        <g className="nh-ct-lighthouse">
+          <polygon className="nh-ct-beamray" points="340,150 1100,70 1100,240" fill="url(#ct-beam)" />
+          <polygon points="334,150 346,150 350,300 330,300" fill="#17325b" />
+          <rect x="328" y="138" width="24" height="14" fill="#1d3d6e" />
+          <rect x="334" y="144" width="12" height="6" fill="#F1F5F9" />
         </g>
 
-        {/* Tampon : posé quand l’e-mail est prêt. */}
-        <motion.circle
-          cx="520"
-          cy="110"
-          r="32"
-          fill={TURQ}
-          initial={false}
-          animate={{ scale: prepared ? 1 : 0, opacity: prepared ? 1 : 0 }}
-          transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 260, damping: 14 }}
-          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-        />
-        <motion.path
-          d="M504 110l11 12l22-26"
-          fill="none"
-          stroke={PAPER}
-          strokeWidth="6"
-          strokeLinecap="square"
-          initial={false}
-          animate={{ pathLength: prepared ? 1 : 0 }}
-          transition={{ duration: reduce ? 0 : 0.4, delay: prepared && !reduce ? 0.2 : 0, ease: EASE }}
-        />
+        {/* Plan proche + fenêtres */}
+        <motion.g style={parallax ? { x: nearX } : undefined}>
+          {NEAR.map((b) => (
+            <rect key={b.x} x={b.x} y={b.y} width={b.w} height={b.h + 2} fill="#0a1830" />
+          ))}
+          {windows.map((w) => (
+            <rect
+              key={w.key}
+              className={w.blink ? 'nh-ct-win nh-ct-win--blink' : 'nh-ct-win'}
+              x={w.x}
+              y={w.y}
+              width="8"
+              height="11"
+              fill={w.warm ? '#F1C27B' : '#16B8B0'}
+              style={w.blink ? { animationDelay: `${w.delay}s` } : undefined}
+            />
+          ))}
+        </motion.g>
       </svg>
     </div>
   );

@@ -19,9 +19,11 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
 
 // Source unique de vérité : les mêmes données que celles de l’application.
-const { routes, notFoundMeta, site } = await import(
+const { routes, notFoundMeta, site, servicesPage } = await import(
   pathToFileURL(join(root, 'src', 'data', 'site.js')).href
 );
+const { services } = await import(pathToFileURL(join(root, 'src', 'data', 'services.js')).href);
+const { servicesJsonLd, contactJsonLd } = await import(pathToFileURL(join(root, 'src', 'data', 'seo.js')).href);
 
 const baseHtml = await readFile(join(dist, 'index.html'), 'utf8');
 const siteUrl = site.siteUrl.endsWith('/') ? site.siteUrl : `${site.siteUrl}/`;
@@ -65,7 +67,18 @@ const generated = [];
 
 for (const route of routes) {
   const url = route.path === '/' ? siteUrl : `${siteUrl}${route.path.slice(1)}/`;
-  const html = withMeta(baseHtml, { title: route.title, description: route.description, url });
+  let html = withMeta(baseHtml, { title: route.title, description: route.description, url });
+
+  // Données structurées des pages Services et Contact, sans aucun champ financier.
+  if (route.path === '/services' || route.path === '/contact') {
+    const data =
+      route.path === '/services'
+        ? servicesJsonLd({ site, services, faq: servicesPage.faq.items, url })
+        : contactJsonLd({ site, url });
+    // « < » échappé : le JSON ne peut pas refermer la balise <script>.
+    const json = JSON.stringify(data).replace(/</g, '\\u003c');
+    html = html.replace('</head>', `    <script type="application/ld+json">${json}</script>\n  </head>`);
+  }
 
   if (route.path === '/') {
     await writeFile(join(dist, 'index.html'), html);

@@ -22,6 +22,14 @@ export const site = {
   // Exemple : linkedin: 'https://www.linkedin.com/in/votre-profil'
   linkedin: null,
   whatsapp: null,
+
+  // Engagements affichés sur la page Contact. Laissez `null` : rien ne s’affiche tant que ce n’est pas vrai.
+  //  availability : texte de la pastille de statut, ex. 'Disponible pour de nouveaux projets'
+  //  responseTime : délai de réponse tenable, ex. 'sous 48 h'
+  availability: null,
+  responseTime: null,
+  // Langues d’échange (le site est en français).
+  languages: ['Français'],
 };
 
 // Les cinq pages. `title` et `description` alimentent <title> et <meta description>
@@ -57,7 +65,7 @@ export const routes = [
     label: 'Services',
     title: 'Services — NOOR DIGITAL',
     description:
-      'Développement de sites web, intégration d’interfaces responsive et fonctionnalités dynamiques pour les entreprises. Une méthode de travail simple en quatre étapes.',
+      'Développement de sites web, intégration d’interfaces responsive et fonctionnalités dynamiques (PHP, Laravel, MySQL). Une méthode simple en quatre étapes, de la première discussion à la mise en ligne.',
   },
   {
     path: '/contact',
@@ -65,7 +73,7 @@ export const routes = [
     label: 'Contact',
     title: 'Contact — NOOR DIGITAL',
     description:
-      'Contactez NOOR DIGITAL par e-mail pour un projet de site ou d’application web. Basé à Dakar, Sénégal.',
+      'Parlons de votre projet de site ou d’application web : formulaire guidé, e-mail ou WhatsApp. NOOR DIGITAL, basé à Dakar, Sénégal.',
   },
 ];
 
@@ -285,74 +293,382 @@ export const projectsPage = {
 // ─────────────────────────────────────────────────────────────
 
 export const servicesPage = {
-  kicker: 'Ce que je propose',
-  title: 'Services',
-  sub: 'Du site vitrine aux fonctionnalités dynamiques : ce que je peux construire avec vous, et ce que vous recevez à la fin.',
-  indexLabel: 'Accès rapide aux services',
-  listLabel: 'Liste des services',
-  deliverablesLabel: 'Ce que vous recevez',
-  cta: 'Parler de ce service',
+  // ── Hero ───────────────────────────────────────────────────
+  hero: {
+    kicker: 'Ce que je propose',
+    lead: 'Des sites qui',
+    // Le dernier mot alterne. Gardez des mots courts : ils doivent tenir sur une ligne en mobile.
+    words: ['convainquent', 's’adaptent', 'durent'],
+    sub: 'Sites vitrines, interfaces responsive et fonctionnalités sur mesure : je conçois et je développe des sites clairs, adaptés à tous les écrans et faciles à faire évoluer.',
+    primary: 'Démarrer un projet',
+    secondary: 'Voir les services',
+    quickNavLabel: 'Accès rapide aux services',
+    marqueeLabel: 'Technologies utilisées',
+    marquee: [
+      { label: 'HTML', icon: 'html5' },
+      { label: 'CSS', icon: 'css' },
+      { label: 'JavaScript', icon: 'javascript' },
+      { label: 'PHP', icon: 'php' },
+      { label: 'Laravel', icon: 'laravel' },
+      { label: 'MySQL', icon: 'mysql' },
+      { label: 'React', icon: 'react' },
+    ],
+    scrollLabel: 'Défiler pour découvrir les services',
+  },
+
+  // ── Chiffres clés ──────────────────────────────────────────
+  // Uniquement des faits vérifiables. `source` calcule la valeur depuis les données du site
+  // (services, étapes de méthode, technologies) ; `value` fixe un nombre à la main ; `text` affiche un mot.
+  // Pour afficher un délai de réponse, ajoutez-le seulement s'il est tenable :
+  //   { id: 'reponse', value: 48, suffix: ' h', label: 'pour une première réponse' }
+  stats: {
+    label: 'Chiffres clés',
+    items: [
+      { id: 'services', source: 'services', label: 'services proposés' },
+      { id: 'tech', source: 'tech', label: 'technologies et outils utilisés' },
+      { id: 'steps', source: 'process', label: 'étapes de méthode' },
+      { id: 'place', text: 'Dakar', label: 'basé au Sénégal, travail à distance' },
+    ],
+  },
+
+  // ── Services (sticky storytelling) ─────────────────────────
+  stack: {
+    kicker: 'Les services',
+    title: 'Quatre façons de faire avancer votre projet',
+    text: 'Chaque service décrit ce que vous recevez, pour qui il est pensé et les technologies employées.',
+    listLabel: 'Liste des services',
+    deliverablesLabel: 'Ce que vous recevez',
+    idealLabel: 'Idéal pour',
+    techLabel: 'Technologies',
+    cta: 'Discuter de ce service',
+    progressLabel: 'Service',
+    of: 'sur',
+  },
+
+  // ── Pourquoi travailler avec moi (bande compacte : une phrase par point) ──
+  why: {
+    title: 'Pourquoi travailler avec moi',
+    text: 'Des fondations solides pour un site agréable à utiliser et simple à faire évoluer.',
+    items: [
+      { icon: 'brackets', title: 'Code propre', text: 'Lisible, organisé en composants et suivi avec Git.' },
+      { icon: 'devices', title: 'Responsive natif', text: 'Pensé mobile d’abord, adapté à tous les écrans.' },
+      { icon: 'access', title: 'Accessibilité de base', text: 'Clavier, contrastes et focus visibles dès la conception.' },
+      { icon: 'message', title: 'Communication claire', text: 'Des échanges simples et un projet toujours suivi.' },
+    ],
+  },
+
+  // ── Méthode ────────────────────────────────────────────────
   processTitle: 'Une méthode simple, en quatre étapes',
   processText: 'Chaque projet suit le même fil, de la première discussion à la mise en ligne.',
+  processLabel: 'Étape',
+
+  // ── Types de projets (sans mention financière) ──────────────────────────
+  // `service` : identifiant d'un service de services.js, utilisé pour pré-remplir /contact?service=<id>.
+  workTypes: {
+    title: 'Comment on travaille ensemble',
+    text: 'Trois façons courantes de démarrer. Votre projet est peut-être entre les deux : parlons-en.',
+    includedLabel: 'Ce qui est inclus',
+    flowLabel: 'Déroulé',
+    cta: 'Parler de mon projet',
+    items: [
+      {
+        id: 'vitrine',
+        service: 'sites-web',
+        title: 'Site vitrine',
+        forWho: 'Activités, associations et indépendants qui veulent se présenter en ligne.',
+        included: [
+          'Pages structurées (accueil, présentation, contact)',
+          'Adaptation mobile, tablette, ordinateur',
+          'Mise en ligne avec instructions',
+        ],
+        flow: ['Échange', 'Structure', 'Développement', 'Mise en ligne'],
+      },
+      {
+        id: 'sur-mesure',
+        service: 'fonctionnalites',
+        title: 'Site sur mesure avec fonctionnalités',
+        forWho: 'Projets qui doivent collecter, traiter ou afficher des données.',
+        included: [
+          'Formulaires, validations, interactions',
+          'Côté serveur avec PHP ou Laravel',
+          'Données stockées avec MySQL',
+        ],
+        flow: ['Cadrage', 'Maquette', 'Développement', 'Tests et livraison'],
+      },
+      {
+        id: 'amelioration',
+        service: 'entreprises',
+        title: 'Amélioration d’un site existant',
+        forWho: 'Sites en ligne à rendre plus lisibles, mieux structurés ou plus simples à maintenir.',
+        included: [
+          'Analyse simple de l’existant',
+          'Améliorations classées par priorité',
+          'Mises à jour et vérification du code',
+        ],
+        flow: ['Analyse', 'Priorités', 'Corrections', 'Vérification'],
+      },
+    ],
+  },
+
+  // ── Après votre message ────────────────────────────────────
+  // Uniquement des engagements que vous pouvez tenir. `delay` est facultatif (exemple : 'sous 48 h').
+  after: {
+    title: 'Ce qui se passe après votre message',
+    text: 'Pas de formalités : voici simplement la suite.',
+    items: [
+      { title: 'Je vous réponds', text: 'Votre message est lu attentivement et vous recevez une réponse personnelle.', delay: null },
+      { title: 'Un premier échange', text: 'On cadre ensemble votre besoin : objectifs, public, contraintes et contenu disponible.', delay: null },
+      { title: 'Une marche à suivre', text: 'Je vous propose la façon la plus adaptée d’avancer, étape par étape.', delay: null },
+    ],
+  },
+
+  // ── FAQ (aucune question financière) ───────────────────
+  faq: {
+    title: 'Questions fréquentes',
+    text: 'Une question qui n’est pas ici ? Écrivez-moi, la réponse viendra avec la discussion.',
+    items: [
+      {
+        q: 'Combien de temps prend un projet ?',
+        a: 'Cela dépend de la taille du site, du contenu déjà disponible et de la rapidité des retours. Après le premier échange, je vous indique un calendrier réaliste pour votre cas.',
+      },
+      {
+        q: 'Qui s’occupe de l’hébergement et de la mise en ligne ?',
+        a: 'Le code est livré avec les instructions de mise en ligne, et je vous explique les options d’hébergement adaptées à votre projet. On voit ensemble ce qui vous convient.',
+      },
+      {
+        q: 'Et la maintenance, une fois le site en ligne ?',
+        a: 'Des ajustements selon vos retours font partie de la dernière étape. Pour des mises à jour régulières, on en discute selon votre besoin.',
+      },
+      {
+        q: 'Puis-je demander des modifications après la livraison ?',
+        a: 'Oui. Pour un petit ajustement comme pour une évolution plus importante, il suffit de me contacter : on cadre ce qu’il faut faire.',
+      },
+      {
+        q: 'Travaillez-vous à distance ?',
+        a: 'Oui. Je suis basé à Dakar et je travaille à distance : les échanges passent par e-mail, et par un autre canal si nous en convenons.',
+      },
+      {
+        q: 'Comment se déroule un premier échange ?',
+        a: 'On parle de vos objectifs, de votre public, de vos contraintes et de ce que vous avez déjà (contenu, logo, site existant). Je vous propose ensuite la marche à suivre.',
+      },
+      {
+        q: 'Je ne sais pas encore précisément ce dont j’ai besoin. Est-ce un problème ?',
+        a: 'Pas du tout. Décrivez simplement votre idée ou votre difficulté : le premier échange sert justement à clarifier le besoin.',
+      },
+    ],
+  },
+
+  // ── Témoignages : masqués tant que data/testimonials.js est vide ──
+  testimonials: {
+    title: 'Ils en parlent',
+    text: 'Des retours réels de personnes avec qui j’ai travaillé.',
+  },
+
+  // ── Barre CTA flottante ────────────────────────────────────
+  floating: { text: 'Un projet ?', cta: 'Parlons-en' },
+
+  // ── Clôture ────────────────────────────────────────────────
+  // Les liens e-mail et WhatsApp viennent de `site` : un canal à null reste masqué.
   closing: {
-    titleLines: ['Un besoin', 'précis ?'],
-    primary: 'Me contacter',
-    secondary: 'Voir les projets',
+    titleLines: ['Parlons de', 'votre projet'],
+    primary: 'Parlons de votre projet',
+    email: 'Écrire par e-mail',
+    whatsapp: 'WhatsApp',
   },
 };
 
 // ─────────────────────────────────────────────────────────────
-// Page Contact (direction manga). Le site est statique : le « formulaire » prépare un e-mail
-// (lien mailto), il n’envoie rien lui-même et ne le prétend jamais. Les canaux viennent de `site`.
+// Page Contact. Le site est statique (GitHub Pages, sans backend) : le formulaire envoie via un service
+// de formulaires statique si VITE_FORM_ENDPOINT est défini (voir src/lib/sendForm.js et le README) ;
+// sinon, ou si l’envoi échoue, il propose la messagerie (mailto) et la copie du message, et le dit
+// clairement. Rien n’est jamais présenté comme envoyé s’il ne l’est pas.
+// Les canaux et engagements viennent de `site` : une valeur à null reste masquée.
 // ─────────────────────────────────────────────────────────────
 
 export const contactPage = {
   kicker: 'Contact',
-  titleLines: contactCopy.titleLines,
-  // Le déroulé réel du formulaire : une vraie séquence, donc numérotée.
-  stepsLabel: 'Comment ça se passe',
-  steps: ['Vous décrivez votre projet', 'Votre messagerie s’ouvre, message prérempli', 'Vous relisez, puis vous envoyez'],
-  place: site.location,
-  intro: contactCopy.intro,
-  form: {
-    title: 'Décrivez votre projet',
-    note: 'Ce formulaire prépare un e-mail dans votre messagerie. Rien n’est envoyé tant que vous ne l’envoyez pas vous-même.',
-    name: 'Votre nom',
-    type: 'Type de projet',
-    typePlaceholder: 'À préciser (facultatif)',
-    typeOther: 'Autre besoin',
-    message: 'Votre projet',
-    messageHint: 'Contexte, objectif, public visé : quelques lignes suffisent.',
-    deadline: 'Échéance souhaitée',
-    deadlineHint: 'Facultatif : une date, ou « dès que possible ».',
-    submit: 'Préparer mon e-mail',
-    meterLabel: 'champs obligatoires remplis',
-    meterOf: 'sur',
-    meterReady: 'Votre fiche est prête : vous pouvez préparer l’e-mail.',
-    errors: {
-      name: 'Indiquez votre nom.',
-      message: 'Décrivez votre projet en quelques mots (10 caractères minimum).',
+  // H1 : « Parlons de / votre PROJET. » — le dernier mot est mis en couleur.
+  titleLead: 'Parlons de',
+  titleMid: 'votre',
+  titleAccent: 'projet.',
+  intro:
+    'Un site à créer, une interface à améliorer ou une idée à structurer : dites-moi où vous en êtes, on avance ensemble.',
+  gmt: 'Dakar = GMT',
+  scrollLabel: 'Défiler vers le formulaire',
+
+  // Trois actions rapides sous le titre.
+  quick: {
+    label: 'Me contacter rapidement',
+    email: {
+      title: 'E-mail',
+      hint: 'Copie l’adresse et ouvre votre messagerie',
+      copied: 'Adresse copiée ✓',
+      copyError: 'Copie impossible : l’adresse est affichée sur la carte.',
     },
-    readyTitle: 'Votre messagerie devrait s’ouvrir avec le message prérempli.',
-    readyText: 'Si rien ne s’ouvre, copiez le message ci-dessous et envoyez-le à l’adresse indiquée.',
-    reopen: 'Ouvrir à nouveau',
+    whatsapp: {
+      title: 'WhatsApp',
+      hint: 'Discuter directement',
+      message: 'Bonjour, je vous contacte depuis votre portfolio au sujet d’un projet.',
+    },
+    form: { title: 'Écrire un message', hint: 'Un formulaire guidé en 3 étapes' },
+    moreLabel: 'Aussi sur',
+    newTab: '(s’ouvre dans un nouvel onglet)',
+  },
+
+  // Colonne de gauche du formulaire : volontairement courte (une ligne par point).
+  reassure: {
+    title: 'Un échange simple et direct',
+    items: [
+      'Vous écrivez directement à la personne qui construit votre site.',
+      'Inutile de tout savoir : décrivez simplement votre idée.',
+      'Vos coordonnées servent uniquement à vous répondre.',
+    ],
+    afterTitle: 'Ensuite',
+    // Versions courtes des étapes de servicesPage.after (même ordre ; un `delay` éventuel est repris de là).
+    after: [
+      { title: 'Je vous réponds', text: 'Réponse personnelle à votre message.' },
+      { title: 'Un premier échange', text: 'On cadre votre besoin ensemble.' },
+      { title: 'Une marche à suivre', text: 'Je vous propose comment avancer.' },
+    ],
+    responseLabel: 'Délai de réponse habituel',
+  },
+
+  form: {
+    id: 'ct-form',
+    title: 'Décrivez votre projet',
+    stepWord: 'Étape',
+    of: 'sur',
+    steps: [
+      { title: 'De quoi avez-vous besoin ?', hint: 'Plusieurs choix possibles. Pas sûr ? Passez à l’étape suivante.' },
+      { title: 'Parlez-moi de votre projet', hint: 'Quelques lignes suffisent : contexte, objectif, public visé.' },
+      { title: 'Comment vous joindre ?', hint: 'Je vous réponds sur le canal de votre choix.' },
+    ],
+    other: 'Autre besoin',
+    messageLabel: 'Votre projet',
+    messagePlaceholder: 'Ex. : je voudrais présenter mon activité en ligne avec un site clair et facile à mettre à jour…',
+    startersLabel: 'Pour démarrer',
+    starters: ['Je veux refaire mon site…', 'J’ai besoin d’une fonctionnalité…', 'Je pars de zéro et je cherche…'],
+    deadlineLabel: 'Échéance souhaitée',
+    deadlines: [
+      { id: 'asap', label: 'Dès que possible' },
+      { id: 'month', label: 'Ce mois-ci' },
+      { id: 'quarter', label: 'Dans 2-3 mois' },
+      { id: 'flex', label: 'Flexible' },
+      { id: 'date', label: 'Date précise' },
+    ],
+    dateLabel: 'Date souhaitée',
+    nameLabel: 'Votre nom',
+    emailLabel: 'Votre e-mail',
+    phoneLabel: 'Téléphone ou WhatsApp (facultatif)',
+    channelLabel: 'Canal préféré pour la réponse',
+    channels: [
+      { id: 'email', label: 'E-mail' },
+      { id: 'whatsapp', label: 'WhatsApp' },
+    ],
+    errors: {
+      message: 'Quelques mots de plus, s’il vous plaît (10 caractères minimum).',
+      name: 'Indiquez votre nom, pour que je sache à qui répondre.',
+      email: 'Indiquez une adresse e-mail valide (par exemple nom@exemple.com).',
+      phone: 'Pour une réponse sur WhatsApp, indiquez votre numéro.',
+    },
+    next: 'Continuer',
+    back: 'Retour',
+    send: 'Envoyer mon message',
+    sending: 'Envoi en cours…',
+    recapTitle: 'Votre message',
+    recapEmpty: 'Votre message apparaîtra ici.',
+    honeypot: 'Ne pas remplir ce champ',
+    // Quand rien n’est parti : explications claires + solutions de repli.
+    noEndpointTitle: 'L’envoi direct n’est pas activé sur ce site.',
+    noEndpointText: 'Votre message n’est pas encore parti. Ouvrez votre messagerie : tout est prérempli, il n’y a plus qu’à envoyer.',
+    failTitle: 'L’envoi n’a pas abouti.',
+    failText: 'Votre message n’est pas parti. Vous pouvez réessayer, ou utiliser votre messagerie : tout est prérempli.',
+    retry: 'Réessayer l’envoi',
+    openMail: 'Ouvrir ma messagerie',
     copy: 'Copier le message',
-    copied: 'Message copié.',
-    copyError: 'Copie impossible : sélectionnez le texte et copiez-le manuellement.',
+    copied: 'Message copié ✓',
+    copyError: 'Copie impossible : sélectionnez le texte ci-dessous et copiez-le.',
+    editAgain: 'Modifier mon message',
     to: 'À',
     subject: 'Objet',
+    success: {
+      title: 'Message envoyé',
+      text: 'Merci, votre message est bien parti. Voici la suite.',
+      projects: 'Voir mes projets',
+      home: 'Retour à l’accueil',
+    },
   },
-  channelsTitle: 'Autres moyens de me joindre',
+
+  // Où et quand me joindre : un ciel qui suit l’heure de Dakar + trois lignes (pas de cartes).
+  where: {
+    title: 'Où et quand me joindre',
+    skyLabel: 'Heure actuelle à Dakar',
+    now: 'À Dakar',
+    gmt: 'GMT · UTC+0',
+    rows: {
+      place: { label: 'Où', text: 'Dakar est à l’heure GMT (UTC+0), sans changement d’heure.' },
+      time: { label: 'Quand', value: 'Heure de Dakar', text: 'Le ciel ci-contre suit l’heure locale, en direct.' },
+      how: {
+        label: 'Comment',
+        value: 'À distance',
+        text: 'Je travaille à distance : les échanges passent par e-mail, et par WhatsApp si vous le préférez.',
+        textNoWhatsapp: 'Je travaille à distance : les échanges passent par e-mail.',
+        languages: 'Langues',
+      },
+    },
+    dayparts: { dawn: 'Aube', morning: 'Matin', afternoon: 'Après-midi', evening: 'Soirée', night: 'Nuit' },
+  },
+
+  faq: {
+    title: 'Questions fréquentes',
+    text: 'Un doute avant d’écrire ? Voici les réponses aux questions les plus courantes.',
+    items: [
+      {
+        q: 'Comment se passe un premier échange ?',
+        a: 'On parle de vos objectifs, de votre public, de vos contraintes et de ce que vous avez déjà (contenu, logo, site existant). Je vous propose ensuite la marche à suivre.',
+      },
+      {
+        q: 'Sous quel délai aurai-je une réponse ?',
+        a: 'Chaque message est lu et reçoit une réponse personnelle.',
+        withResponseTime: true,
+      },
+      {
+        q: 'Combien de temps prend un projet ?',
+        a: 'Cela dépend de la taille du site, du contenu disponible et de la rapidité des retours. Après le premier échange, je vous indique un calendrier réaliste pour votre cas.',
+      },
+      {
+        q: 'Travaillez-vous à distance ?',
+        a: 'Oui. Je suis basé à Dakar et je travaille à distance, avec des échanges clairs à chaque étape.',
+      },
+      {
+        q: 'Et l’hébergement, la maintenance et les modifications après la livraison ?',
+        a: 'Le code est livré avec les instructions de mise en ligne, et je vous explique les options d’hébergement adaptées. Des ajustements selon vos retours font partie de la dernière étape ; pour des évolutions plus importantes, on cadre ensemble ce qu’il faut faire.',
+      },
+      {
+        q: 'Quelles informations préparer avant de vous écrire ?',
+        a: 'Votre objectif, le public visé, ce qui existe déjà (site, logo, textes, images) et, si vous en avez, des exemples de sites que vous aimez. Mais rien n’est obligatoire : on peut aussi partir d’une simple idée.',
+      },
+    ],
+  },
+
+  testimonials: {
+    title: 'Ils en parlent',
+    text: 'Des retours réels de personnes avec qui j’ai travaillé.',
+  },
+
   channels: {
+    title: 'Autres moyens de me joindre',
     email: 'E-mail',
-    copy: 'Copier l’adresse',
-    copied: 'Adresse copiée.',
-    copyError: 'Copie impossible : sélectionnez l’adresse et copiez-la manuellement.',
-    location: 'Localisation',
-    copyDone: 'Copiée',
-    dayparts: { morning: 'Matin', afternoon: 'Après-midi', evening: 'Soirée', night: 'Nuit' },
-    dakarNow: 'À Dakar',
+    copy: 'Copier',
+    copied: 'Copiée ✓',
+    copyError: 'Copie impossible : sélectionnez l’adresse et copiez-la.',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    whatsapp: 'WhatsApp',
   },
+
+  floating: { label: 'Écrire' },
+
   closing: {
     titleLines: ['Voir ce que', 'j’ai construit.'],
     primary: 'Voir les projets',

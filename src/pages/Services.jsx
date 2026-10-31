@@ -1,50 +1,64 @@
 import { useReducedMotion } from 'motion/react';
-import { getRoute, servicesPage } from '../data/site.js';
+import { getRoute, servicesPage, site } from '../data/site.js';
 import { services } from '../data/services.js';
 import useDocumentTitle from '../hooks/useDocumentTitle.js';
-import ServicesHead from '../components/services/ServicesHead.jsx';
-import ServiceSpread from '../components/services/ServiceSpread.jsx';
+import useActiveId from '../hooks/useActiveId.js';
+import ServicesHero from '../components/services/ServicesHero.jsx';
+import ServicesStack from '../components/services/ServicesStack.jsx';
+import WhyMe from '../components/services/WhyMe.jsx';
 import ServicesProcess from '../components/services/ServicesProcess.jsx';
+import WorkTypes from '../components/services/WorkTypes.jsx';
+import AfterContact from '../components/services/AfterContact.jsx';
+import Faq from '../components/services/Faq.jsx';
+import Testimonials from '../components/services/Testimonials.jsx';
+import FloatingCta from '../components/services/FloatingCta.jsx';
 import PageClose from '../components/home/PageClose.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
 
-// Services (direction manga) : tête avec planche-contact → une double-page par service → méthode → clôture.
-// La liste des services et la méthode viennent de services.js ; les textes de la page, de site.js (servicesPage).
+const SERVICE_IDS = services.map((service) => service.id);
+
+// Services : hero plein écran → services en « sticky storytelling » → pourquoi moi →
+// méthode → types de projet → après votre message → FAQ → témoignages (si renseignés) → clôture.
+// Aucune mention financière sur cette page : la conversion passe uniquement par le contact.
+// Textes dans data/site.js (servicesPage), services et méthode dans data/services.js.
 export default function Services() {
   useDocumentTitle(getRoute('/services'));
   const reduce = useReducedMotion();
-  const { closing, listLabel } = servicesPage;
+  const { closing } = servicesPage;
+  const active = useActiveId(SERVICE_IDS, 'services');
 
-  // Accès rapide depuis la planche-contact : on défile jusqu’au service.
+  // Défilement fluide vers un service (ou vers la section) ; instantané avec « mouvement réduit ».
   function goTo(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: id === 'services' ? 'start' : 'center' });
+  }
+
+  // Les canaux non confirmés (à null dans site.js) restent masqués.
+  const actions = [
+    { label: closing.primary, to: '/contact' },
+    { label: closing.email, href: `mailto:${site.email}`, variant: 'ghost' },
+  ];
+  if (site.whatsapp) {
+    actions.push({
+      label: closing.whatsapp,
+      href: `https://wa.me/${site.whatsapp.replace(/\D/g, '')}`,
+      external: true,
+      variant: 'ghost',
+    });
   }
 
   return (
     <div className="home nh nh-sv">
       <ScrollRail />
-      <ServicesHead onPick={goTo} />
-
-      <section className="nh-sv-main" aria-label={listLabel}>
-        <div className="container">
-          <div className="nh-sv-items">
-            {services.map((service, i) => (
-              <ServiceSpread key={service.id} service={service} index={i} total={services.length} />
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <ServicesHero active={active} onGo={goTo} />
+      <ServicesStack active={active} />
+      <WhyMe />
       <ServicesProcess />
-
-      <PageClose
-        id="services-close"
-        titleLines={closing.titleLines}
-        actions={[
-          { label: closing.primary, to: '/contact' },
-          { label: closing.secondary, to: '/projets', variant: 'ghost' },
-        ]}
-      />
+      <WorkTypes />
+      <AfterContact />
+      <Faq />
+      <Testimonials />
+      <PageClose id="services-close" titleLines={closing.titleLines} actions={actions} />
+      <FloatingCta />
     </div>
   );
 }
