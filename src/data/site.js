@@ -21,7 +21,7 @@ export const site = {
   // Canaux non confirmés : laissez `null`, ils restent masqués.
   // Exemple : linkedin: 'https://www.linkedin.com/in/votre-profil'
   linkedin: null,
-  whatsapp: null,
+  whatsapp: '221770600379',
 
   // Engagements affichés sur la page Contact. Laissez `null` : rien ne s’affiche tant que ce n’est pas vrai.
   //  availability : texte de la pastille de statut, ex. 'Disponible pour de nouveaux projets'
