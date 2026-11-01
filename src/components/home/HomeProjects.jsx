@@ -69,9 +69,11 @@ function ProjectPanel({ project, index }) {
             </ul>
             <div className="nh-pcard__links">
               <span className="nh-pcard__more">{details}</span>
-              <a className="nh-pcard__code" href={project.github} target="_blank" rel="noopener noreferrer">
-                {code} <span className="visually-hidden">de {project.name} (s’ouvre dans un nouvel onglet)</span>
-              </a>
+              {project.github && (
+                <a className="nh-pcard__code" href={project.github} target="_blank" rel="noopener noreferrer">
+                  {code} <span className="visually-hidden">de {project.name} (s’ouvre dans un nouvel onglet)</span>
+                </a>
+              )}
               {project.demo && (
                 <a className="nh-pcard__code" href={project.demo} target="_blank" rel="noopener noreferrer">
                   Démo <span className="visually-hidden">de {project.name} (s’ouvre dans un nouvel onglet)</span>

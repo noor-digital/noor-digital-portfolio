@@ -75,3 +75,40 @@ export function contactJsonLd({ site, url }) {
     ],
   };
 }
+
+// Page Projets : CollectionPage listant chaque projet (SoftwareSourceCode, avec le lien du dépôt). Aucun champ financier.
+export function projectsJsonLd({ site, projects, url }) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${url}#page`,
+        url,
+        name: `Projets — ${site.name}`,
+        inLanguage: 'fr',
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: projects.length,
+          itemListElement: projects.map((project, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            item: {
+              '@type': 'SoftwareSourceCode',
+              '@id': `${url}#${project.slug}`,
+              name: project.name,
+              description: project.description,
+              url: `${url}#${project.slug}`,
+              ...(project.github ? { codeRepository: project.github } : {}),
+              programmingLanguage: project.tech,
+              inLanguage: 'fr',
+              author: { '@type': 'Person', name: site.owner },
+              ...(project.demo ? { sameAs: [project.demo] } : {}),
+              ...(project.year ? { dateCreated: String(project.year) } : {}),
+            },
+          })),
+        },
+      },
+    ],
+  };
+}

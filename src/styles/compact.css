@@ -25,15 +25,6 @@
 .nh-ab-principle__in { min-height: 0; padding-block: clamp(20px, 2.4vw, 30px); }
 .nh-ab-principle__in p { line-height: 1.6; }
 
-/* Projets : une illustration plus basse, une fiche plus serrée, moins d'air entre les cases */
-.nh-pj-items { gap: clamp(40px, 6vw, 80px); }
-.nh-pj-art__img { aspect-ratio: 16 / 9; }
-.nh-pj-info__body { padding-block: clamp(18px, 2.2vw, 28px); }
-.nh-pj-info__desc { line-height: 1.6; }
-@media (max-width: 760px) {
-  .nh-pj-art__img { aspect-ratio: 16 / 8; }
-}
-
 /* ── Second passage : espacements internes ─────────────────── */
 
 /* Accueil : cases de présentation */
@@ -58,13 +49,3 @@
 
 /* À propos : repère de la fiche plus discret */
 .nh-ab-sheet__mark { max-width: 64px; padding-top: 16px; }
-
-/* Projets : fiches resserrées */
-.nh-pj-art__img { aspect-ratio: 2 / 1; }
-.nh-pj-info__desc { margin-top: 10px; font-size: 1rem; line-height: 1.55; }
-.nh-pj-facts { margin-top: 14px; }
-.nh-pj-facts > div { padding-block: 8px; }
-.nh-pj-links { margin-top: 16px; }
-@media (max-width: 860px) {
-  .nh-pj-art__img { aspect-ratio: 16 / 8; }
-}

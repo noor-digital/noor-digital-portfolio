@@ -1,6 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'motion/react';
-import { EASE } from '../../lib/motion.js';
+import Counter from '../Counter.jsx';
 import { servicesPage } from '../../data/site.js';
 import { services, process } from '../../data/services.js';
 import { skillGroups } from '../../data/skills.js';
@@ -11,22 +9,6 @@ const SOURCES = {
   process: process.length,
   tech: skillGroups.reduce((n, group) => n + group.items.length, 0),
 };
-
-function Counter({ to }) {
-  const reduce = useReducedMotion();
-  const ref = useRef(null);
-  const seen = useInView(ref, { once: true, margin: '0px 0px -8% 0px' });
-  const value = useMotionValue(reduce ? to : 0);
-  const rounded = useTransform(value, (v) => Math.round(v));
-
-  useEffect(() => {
-    if (!seen || reduce) return undefined;
-    const controls = animate(value, to, { duration: 1.4, ease: EASE });
-    return () => controls.stop();
-  }, [seen, reduce, to, value]);
-
-  return <motion.span ref={ref}>{rounded}</motion.span>;
-}
 
 // Chiffres clés : uniquement des faits réels (voir servicesPage.stats dans data/site.js).
 export default function StatsStrip() {

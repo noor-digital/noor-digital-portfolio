@@ -278,3 +278,21 @@ Le site est statique (GitHub Pages) : l'envoi passe par un service de formulaire
 4. **En production (GitHub Pages) :** dans le dépôt, *Settings → Secrets and variables → Actions → onglet **Variables** → New repository variable* : créez `VITE_FORM_ENDPOINT` (et `VITE_FORM_ACCESS_KEY` pour Web3Forms). Le workflow `.github/workflows` les lit au build. Relancez ensuite le déploiement (push ou « Run workflow »).
 
 Ces valeurs sont **publiques par nature** (elles finissent dans le JavaScript du site) : elles ne permettent que d'envoyer un message vers votre boîte. Ne mettez jamais de secret dans une variable `VITE_*`. Sans endpoint, ou si l'envoi échoue, le formulaire le dit clairement et propose « Ouvrir ma messagerie » (mailto prérempli) et « Copier le message » : il n'affiche « Message envoyé » que si le service a confirmé la réception.
+
+## Page Projets (refonte, étape 4)
+
+- Composants : `src/components/projects/` (ProjectsHero, ShowReel, StatsStrip, TechMarquee, ProjectToolbar, FeaturedProject, ProjectCard, ProjectList, ProjectDrawer, ProjectMedia, TechBadges, EmptyState, HowIWork, ProjectsFloatingCta). Styles : `src/styles/projects.css` (préfixe `nh-pj-`).
+- Données : `src/data/projects.js`. Champs optionnels (masqués s'ils sont vides) : `featured`, `longDescription`, `features`, `learnings`, `role`, `year`, `demo`, `image`, `gallery`. Textes : `projectsPage` dans `src/data/site.js`.
+- Un clic sur « Voir le projet » ouvre la fiche, synchronisée avec le hash : `/projets#slug` (l'accueil utilise déjà ces liens). Les filtres sont dans l'URL : `?cat=`, `?tech=`, `?q=`.
+- Tant qu'un projet n'a pas de vraie capture (`image: null`), un visuel illustratif est affiché, étiqueté « Aperçu illustratif ». Dès que `image` est renseigné, la capture apparaît dans un cadre de navigateur.
+- Aucune mention financière sur la page.
+
+### Publier un projet en démo (GitHub Pages) puis ajouter sa capture
+
+Pour chaque dépôt de projet (ce sont des sites statiques, sans étape de build) :
+
+1. Dépôt GitHub → *Settings → Pages* → *Build and deployment* → Source : **Deploy from a branch** → branche `main`, dossier `/ (root)` → *Save*.
+2. Attendez une à deux minutes : l'adresse est `https://<compte>.github.io/<nom-du-dépôt>/` (ici : `https://noor-digital.github.io/<slug>/`).
+3. Ouvrez-la et vérifiez : les chemins des fichiers (CSS, JS, images) doivent être **relatifs** (`css/style.css`, pas `/css/style.css`), car le site vit sous `/<nom-du-dépôt>/`. Les projets en modules ES fonctionnent sur Pages (servis en HTTP).
+4. Dans `src/data/projects.js`, remplacez `demo: null` par cette adresse : le bouton « Démo en ligne » apparaît tout seul.
+5. Captures (facultatif) : `npm i -D playwright && npx playwright install chromium`, puis `npm run capture` (simulation) et `npm run capture -- --go`. Collez les lignes `image: {…}` affichées.

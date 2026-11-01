@@ -21,7 +21,7 @@ export const site = {
   // Canaux non confirmés : laissez `null`, ils restent masqués.
   // Exemple : linkedin: 'https://www.linkedin.com/in/votre-profil'
   linkedin: null,
-  whatsapp: '221770600379',
+  whatsapp: null,
 
   // Engagements affichés sur la page Contact. Laissez `null` : rien ne s’affiche tant que ce n’est pas vrai.
   //  availability : texte de la pastille de statut, ex. 'Disponible pour de nouveaux projets'
@@ -57,7 +57,7 @@ export const routes = [
     label: 'Projets',
     title: 'Projets — NOOR DIGITAL',
     description:
-      'Six projets web en HTML, CSS et JavaScript : site vitrine, outils du quotidien, application météo et boutique de démonstration. Code source sur GitHub.',
+      'Réalisations web en JavaScript : site vitrine, outils du quotidien, application météo, boutique de démonstration et plateforme de lecture de mangas.',
   },
   {
     path: '/services',
@@ -276,10 +276,76 @@ export const aboutPage = {
 export const projectsPage = {
   title: 'Projets',
   kicker: 'Réalisations',
-  // Phrase d’introduction : le nombre de projets est ajouté devant (voir ProjectsHead).
-  subAfterCount: 'réalisations en HTML, CSS et JavaScript. Chaque projet renvoie vers son code source sur GitHub.',
-  indexLabel: 'Accès rapide aux projets',
-  filterLabel: 'Filtrer les projets par catégorie',
+  // H1 : « Ce que j’ai / construit. » — le dernier mot est mis en couleur.
+  titleLead: 'Ce que j’ai',
+  titleAccent: 'construit.',
+  // Phrase d’introduction : le nombre de projets est ajouté devant (calculé depuis data/projects.js).
+  subAfterCount: 'réalisations web en JavaScript, du site vitrine à la plateforme de lecture. Le code source est lié sur GitHub quand il est publié.',
+  // Chiffres du hero : tous calculés depuis data/projects.js (jamais écrits à la main).
+  stats: {
+    label: 'Chiffres clés',
+    projects: 'projets',
+    tech: 'technologies distinctes',
+    repos: 'dépôts GitHub liés',
+  },
+  marqueeLabel: 'Technologies utilisées dans les projets',
+  scrollLabel: 'Défiler vers les projets',
+  illustrative: 'Aperçu illustratif',
+
+  toolbar: {
+    label: 'Filtres et outils de la liste des projets',
+    all: 'Tous',
+    categoryLabel: 'Catégories',
+    searchLabel: 'Rechercher un projet',
+    searchPlaceholder: 'Nom, description ou technologie',
+    techLabel: 'Technologies',
+    viewLabel: 'Affichage',
+    grid: 'Grille',
+    list: 'Liste',
+    sortLabel: 'Trier',
+    sortDefault: 'Par défaut',
+    sortRecent: 'Plus récents',
+    reset: 'Réinitialiser les filtres',
+    clearSearch: 'Effacer la recherche',
+  },
+  empty: {
+    title: 'Aucun projet ne correspond',
+    text: 'Essayez un autre mot-clé ou retirez un filtre.',
+  },
+  featuredLabel: 'À la une',
+  card: {
+    view: 'Voir le projet',
+    github: 'Code source sur GitHub',
+    demo: 'Voir la démo',
+    keyFeatures: 'Points clés',
+  },
+  drawer: {
+    close: 'Fermer la fiche du projet',
+    share: 'Copier le lien',
+    copied: 'Lien copié ✓',
+    copyError: 'Copie impossible : copiez l’adresse du navigateur.',
+    features: 'Fonctionnalités clés',
+    stack: 'Stack',
+    learnings: 'Ce que ce projet démontre',
+    gallery: 'Galerie',
+    role: 'Rôle',
+    year: 'Année',
+    code: 'Code source sur GitHub',
+    demo: 'Démo en ligne',
+    nav: 'Autres projets',
+    prev: 'Projet précédent',
+    next: 'Projet suivant',
+  },
+  how: {
+    title: 'Comment je travaille sur un projet',
+    items: [
+      { icon: 'brackets', title: 'Code propre', text: 'Lisible, organisé et versionné avec Git.' },
+      { icon: 'devices', title: 'Responsive', text: 'Pensé pour le mobile, adapté à tous les écrans.' },
+      { icon: 'access', title: 'Accessibilité', text: 'Clavier, contrastes et focus visibles dès le départ.' },
+      { icon: 'message', title: 'Livraison expliquée', text: 'Le code est livré avec les explications de mise en ligne.' },
+    ],
+  },
+  floating: { text: 'Un projet ?', cta: 'Parlons-en' },
   closing: {
     titleLines: ['Un projet', 'à structurer ?'],
     primary: 'Me contacter',

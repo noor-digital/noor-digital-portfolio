@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 // Survol « lumineux » d’une carte : un spotlight radial qui suit le curseur (variables CSS --mx / --my)
 // et, si `tilt` > 0, une légère inclinaison 3D (en degrés, 4 maximum). Rien n’est stocké dans React :
 // on écrit directement les variables CSS (aucun re-rendu). Désactivé au toucher et en mouvement réduit.
-export default function useSpotlight(ref, { tilt = 0, enabled = true } = {}) {
+export default function useSpotlight(ref, { tilt = 0, enabled = true, normalized = false } = {}) {
   useEffect(() => {
     const el = ref.current;
     if (!el || !enabled) return undefined;
@@ -20,6 +20,11 @@ export default function useSpotlight(ref, { tilt = 0, enabled = true } = {}) {
         const y = event.clientY - box.top;
         el.style.setProperty('--mx', `${x}px`);
         el.style.setProperty('--my', `${y}px`);
+        if (normalized) {
+          // Position normalisée (-1 à 1) : fait glisser les deux plans des illustrations (.art-back / .art-front).
+          el.style.setProperty('--px', ((x / box.width) * 2 - 1).toFixed(3));
+          el.style.setProperty('--py', ((y / box.height) * 2 - 1).toFixed(3));
+        }
         if (tilt) {
           el.style.setProperty('--ry', `${((x / box.width - 0.5) * 2 * tilt).toFixed(2)}deg`);
           el.style.setProperty('--rx', `${((0.5 - y / box.height) * 2 * tilt).toFixed(2)}deg`);
@@ -30,6 +35,10 @@ export default function useSpotlight(ref, { tilt = 0, enabled = true } = {}) {
       cancelAnimationFrame(frame);
       el.style.removeProperty('--rx');
       el.style.removeProperty('--ry');
+      if (normalized) {
+        el.style.removeProperty('--px');
+        el.style.removeProperty('--py');
+      }
     };
 
     el.addEventListener('pointermove', onMove);
@@ -39,5 +48,5 @@ export default function useSpotlight(ref, { tilt = 0, enabled = true } = {}) {
       el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerleave', onLeave);
     };
-  }, [ref, tilt, enabled]);
+  }, [ref, tilt, enabled, normalized]);
 }
