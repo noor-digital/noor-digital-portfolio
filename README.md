@@ -3,7 +3,7 @@
 > **La lumière qui structure.**
 > Portfolio of a Full Stack Web Developer (PHP • Laravel • JavaScript), based in Dakar, Senegal.
 
-**Live site (once deployed):** <https://noor-digital.github.io/noor-digital-portfolio/>
+**Live site:** <https://noor-digital.github.io/noor-digital-portfolio/>
 
 ## Project gallery — real application captures
 
