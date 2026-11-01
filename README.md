@@ -304,3 +304,10 @@ Pour chaque dépôt de projet (ce sont des sites statiques, sans étape de build
 3. Ouvrez-la et vérifiez : les chemins des fichiers (CSS, JS, images) doivent être **relatifs** (`css/style.css`, pas `/css/style.css`), car le site vit sous `/<nom-du-dépôt>/`. Les projets en modules ES fonctionnent sur Pages (servis en HTTP).
 4. Dans `src/data/projects.js`, remplacez `demo: null` par cette adresse : le bouton « Démo en ligne » apparaît tout seul.
 5. Captures (facultatif) : `npm i -D playwright && npx playwright install chromium`, puis `npm run capture` (simulation) et `npm run capture -- --go`. Collez les lignes `image: {…}` affichées.
+
+## Page À propos (refonte, étape 6)
+
+- Composants : `src/components/about/` (AboutHero, HeroStage, IdentityIntro, ProfileCard, WhyNoor, Timeline, SkillsGrid, Principles + PrincipleIcons, WorkTogether, AboutFloatingCta). Styles : `src/styles/about.css` (préfixe `nh-ab-`, contient aussi la clôture partagée `.nh-ab-close`).
+- Textes et faits : `aboutPage`, `profile`, `studio`, `journey`, `principles` et `site` dans `src/data/site.js` ; compétences dans `src/data/skills.js`. Rien n'est écrit dans les composants.
+- Champs optionnels (masqués s'ils sont vides) : `site.cv` (lien du CV), `site.photo` (portrait), `site.linkedin`, `site.whatsapp`, et par étape du parcours `period`, `description`, `skills`.
+- Aucune mention financière, aucune date, aucun chiffre ni diplôme inventé.

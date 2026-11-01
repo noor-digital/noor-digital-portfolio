@@ -21,7 +21,18 @@ export const site = {
   // Canaux non confirmés : laissez `null`, ils restent masqués.
   // Exemple : linkedin: 'https://www.linkedin.com/in/votre-profil'
   linkedin: null,
-  whatsapp: null,
+  whatsapp: 'https://wa.me/221770600379',
+
+  // Page À propos : laissez `null`, rien ne s’affiche tant que ce n’est pas renseigné.
+  //  cv    : lien du CV à télécharger, ex. 'assets/cv-mamadou-dia-seck.pdf' (fichier dans public/assets/)
+  //  photo : portrait { src: 'assets/portrait.jpg', alt: 'Portrait de …', width: 800, height: 1000 }
+  cv: 'assets/cv-mamadou-dia-seck.pdf',
+  photo: {
+  src: 'assets/portrait.jpg',
+  alt: 'Portrait de Mamadou Dia Seck',
+  width: 800,
+  height: 1000,
+},
 
   // Engagements affichés sur la page Contact. Laissez `null` : rien ne s’affiche tant que ce n’est pas vrai.
   //  availability : texte de la pastille de statut, ex. 'Disponible pour de nouveaux projets'
@@ -117,25 +128,43 @@ export const profile = {
 // Uniquement des informations confirmées. N’ajoutez pas de dates ou de diplômes
 // tant qu’ils ne sont pas vérifiés.
 export const journey = [
-  { label: 'Études', title: 'UVS — Licence 2 en informatique', status: 'Étudiant' },
-  { label: 'Formation', title: 'Full Stack Web Development', status: 'Terminée' },
+  {
+    label: 'Études',
+    title: 'UVS — Licence 2 en informatique',
+    status: 'Étudiant',
+    period: null,
+    description: 'Études en informatique à l’Université Virtuelle du Sénégal.',
+    skills: ['Informatique', 'Développement web'],
+  },
+  {
+    label: 'Formation',
+    title: 'Full Stack Web Development',
+    status: 'Terminée',
+    period: null,
+    description: 'Formation terminée en développement web Full Stack.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Laravel', 'MySQL'],
+  },
 ];
 
 export const principles = [
   {
     title: 'Clarté',
+    icon: 'clarity',
     text: 'Une interface doit se comprendre au premier regard. Je cherche le texte, la hiérarchie et les gestes les plus simples.',
   },
   {
     title: 'Structure',
+    icon: 'structure',
     text: 'Un bon site repose sur une architecture lisible : contenu séparé de la présentation, composants réutilisables, code facile à reprendre.',
   },
   {
     title: 'Précision',
+    icon: 'precision',
     text: 'Les détails comptent : espacements, états de focus, comportement sur mobile, textes d’erreur. Je vérifie avant de livrer.',
   },
   {
     title: 'Lumière',
+    icon: 'light',
     text: 'Comme le nom l’indique, noor : mettre en évidence l’essentiel et laisser le reste en retrait, sans effet inutile.',
   },
 ];
@@ -248,20 +277,69 @@ export const home = {
 export const aboutPage = {
   kicker: 'À propos',
   titleLines: ['Mamadou Dia', 'Seck.'],
+  // Ligne de rôle : le second segment alterne parmi des faits réels (technologies de `site` / `skills`).
+  role: {
+    lead: 'Développeur web full stack',
+    words: ['PHP', 'Laravel', 'JavaScript', 'MySQL', 'React'],
+  },
   sub: studio.statement,
-  // Trois repères, uniquement des faits confirmés (voir `journey`).
-  credentials: [
-    { label: 'Études', value: 'Étudiant en informatique, UVS' },
-    { label: 'Spécialité', value: 'Web et applications mobiles' },
-    { label: 'Formation', value: 'Full Stack Web Development, terminée' },
-  ],
-  sheetTitle: 'Fiche',
-  facts: [
-    { label: 'Basé à', value: site.location },
-    { label: 'Orientation', value: site.jobTitle },
-  ],
+  // Pastilles-repères : uniquement des faits confirmés (voir `journey`). La pastille « Dakar » (heure en direct) est ajoutée par le hero.
+  badges: ['Étudiant en informatique · UVS', 'Web et applications mobiles', 'Formation Full Stack terminée'],
+  ctas: { contact: 'Me contacter', projects: 'Voir les projets', cv: 'Télécharger mon CV' },
+  scrollLabel: 'Défiler vers la présentation',
+  portraitAlt: 'Portrait de Mamadou Dia Seck',
+
+  // ── Qui je suis ──────────────────────────────────────────
+  who: {
+    title: 'Qui je suis',
+    // Mots mis en couleur dans la phrase d’accroche (la première phrase de profile.paragraphs[0]).
+    highlights: ['étudiant en informatique', 'développement web'],
+    sheetTitle: 'Fiche',
+    // Libellés de la fiche ; les valeurs viennent de `site`, `studio` et `journey` (aucune valeur écrite ici).
+    labels: { place: 'Basé à', focus: 'Orientation', study: 'Études', tech: 'Technologies', training: 'Formation' },
+    links: { github: 'GitHub', email: 'E-mail', linkedin: 'LinkedIn', whatsapp: 'WhatsApp', copy: 'Copier', copied: 'Adresse copiée ✓', copyError: 'Copie impossible : sélectionnez l’adresse.' },
+    cv: 'Télécharger mon CV',
+  },
+
+  // ── Pourquoi NOOR ────────────────────────────────────────
+  why: { kicker: 'Pourquoi NOOR', watermark: 'NOOR' },
+
+  // ── Parcours ─────────────────────────────────────────────
   journeyTitle: 'Parcours',
+  journeyText: 'Ce qui a construit mon profil, étape par étape.',
+  journeyNext: { label: 'La suite', title: 'Votre projet', text: 'Parlons-en : c’est la prochaine étape.', cta: 'Me contacter' },
+
+  // ── Compétences ──────────────────────────────────────────
+  skills: {
+    title: 'Compétences',
+    text: 'Les technologies et outils que j’utilise réellement.',
+    cta: 'Voir les projets',
+  },
+
+  // ── Principes ────────────────────────────────────────────
   principlesTitle: 'Ma manière de travailler',
+
+  // ── Travaillons ensemble ─────────────────────────────────
+  together: {
+    title: 'Travaillons ensemble',
+    expectTitle: 'Ce que vous pouvez attendre de moi',
+    expect: [
+      { icon: 'brackets', title: 'Code clair et maintenable', text: 'Lisible, organisé et facile à reprendre.' },
+      { icon: 'devices', title: 'Responsive', text: 'Pensé pour le mobile, adapté à tous les écrans.' },
+      { icon: 'access', title: 'Accessibilité de base', text: 'Clavier, contrastes et focus visibles dès le départ.' },
+      { icon: 'message', title: 'Livraison expliquée', text: 'Le code est livré avec les explications de mise en ligne.' },
+    ],
+    startTitle: 'Comment on commence',
+    start: [
+      { title: 'Vous m’écrivez', text: 'Un message suffit : décrivez simplement votre idée.' },
+      { title: 'On cadre le besoin', text: 'Un premier échange pour préciser objectifs et contraintes.' },
+      { title: 'Je propose la marche à suivre', text: 'La façon la plus adaptée d’avancer, étape par étape.' },
+    ],
+    links: { services: 'Voir les services', projects: 'Voir les projets', contact: 'Me contacter' },
+  },
+
+  floating: { text: 'Un projet ?', cta: 'Parlons-en' },
+
   closing: {
     titleLines: ['Parlons de', 'votre projet.'],
     primary: 'Me contacter',
@@ -316,7 +394,7 @@ export const projectsPage = {
   card: {
     view: 'Voir le projet',
     github: 'Code source sur GitHub',
-    demo: 'Voir la démo',
+    demo: 'Démo en ligne',
     keyFeatures: 'Points clés',
   },
   drawer: {

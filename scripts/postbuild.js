@@ -24,7 +24,7 @@ const { routes, notFoundMeta, site, servicesPage } = await import(
 );
 const { services } = await import(pathToFileURL(join(root, 'src', 'data', 'services.js')).href);
 const { projects } = await import(pathToFileURL(join(root, 'src', 'data', 'projects.js')).href);
-const { servicesJsonLd, contactJsonLd, projectsJsonLd } = await import(pathToFileURL(join(root, 'src', 'data', 'seo.js')).href);
+const { servicesJsonLd, contactJsonLd, projectsJsonLd, aboutJsonLd } = await import(pathToFileURL(join(root, 'src', 'data', 'seo.js')).href);
 
 const baseHtml = await readFile(join(dist, 'index.html'), 'utf8');
 const siteUrl = site.siteUrl.endsWith('/') ? site.siteUrl : `${site.siteUrl}/`;
@@ -70,11 +70,12 @@ for (const route of routes) {
   const url = route.path === '/' ? siteUrl : `${siteUrl}${route.path.slice(1)}/`;
   let html = withMeta(baseHtml, { title: route.title, description: route.description, url });
 
-  // Données structurées des pages Services, Contact et Projets, sans aucun champ financier.
+  // Données structurées des pages Services, Contact, Projets et À propos, sans aucun champ financier.
   const jsonLdBuilders = {
     '/services': () => servicesJsonLd({ site, services, faq: servicesPage.faq.items, url }),
     '/contact': () => contactJsonLd({ site, url }),
     '/projets': () => projectsJsonLd({ site, projects, url }),
+    '/a-propos': () => aboutJsonLd({ site, url }),
   };
   if (jsonLdBuilders[route.path]) {
     const data = jsonLdBuilders[route.path]();

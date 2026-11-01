@@ -39,8 +39,13 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'Bootstrap 5', 'JavaScript'],
     year: null,
     github: 'https://github.com/noor-digital/sabaly-consulting',
+<<<<<<< HEAD
     demo: 'https://sabaly-consulting-green.vercel.app/',
     image: { src: 'assets/sabaly-consulting.png', alt: 'Capture d’écran de Sabaly Consulting', width: 1600, height: 1000 },
+=======
+    demo: null,
+    image: null,
+>>>>>>> cb34038 (Improve About page and configure profile assets)
     featured: false,
     longDescription: null,
     role: null,
@@ -63,8 +68,13 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'JavaScript', 'localStorage'],
     year: null,
     github: 'https://github.com/noor-digital/todo-list',
+<<<<<<< HEAD
     demo: 'https://to-do-list-sigma-woad-32.vercel.app/',
     image: { src: 'assets/todo-list.png', alt: 'Capture d’écran de To-Do List', width: 1600, height: 1000 },
+=======
+    demo: null,
+    image: null,
+>>>>>>> cb34038 (Improve About page and configure profile assets)
     featured: false,
     longDescription: null,
     role: null,
@@ -89,8 +99,13 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap 5', 'Web Speech API'],
     year: null,
     github: 'https://github.com/noor-digital/vocal-queue-system',
+<<<<<<< HEAD
     demo: 'https://vocal-queue-system.vercel.app/',
     image: { src: 'assets/vocal-queue-system.png', alt: 'Capture d’écran de Vocal Queue System', width: 1600, height: 1000 },
+=======
+    demo: null,
+    image: null,
+>>>>>>> cb34038 (Improve About page and configure profile assets)
     featured: false,
     longDescription: null,
     role: null,
@@ -141,8 +156,13 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'JavaScript (ES modules)', 'Canvas 2D', 'Open-Meteo'],
     year: null,
     github: 'https://github.com/noor-digital/aeris-meteo',
+<<<<<<< HEAD
     demo: 'https://noor-digital.github.io/aeris-meteo/',
     image: { src: 'assets/aeris-meteo.png', alt: 'Capture d’écran de Aeris Météo', width: 1600, height: 1000 },
+=======
+    demo: null,
+    image: null,
+>>>>>>> cb34038 (Improve About page and configure profile assets)
     featured: true,
     longDescription: null,
     role: null,
@@ -168,8 +188,13 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'JavaScript (ES modules)', 'localStorage'],
     year: null,
     github: 'https://github.com/noor-digital/nova-shop',
+<<<<<<< HEAD
     demo: 'https://noor-digital.github.io/nova-shop/',
     image: { src: 'assets/nova-shop.png', alt: 'Capture d’écran de NOVA SHOP', width: 1600, height: 1000 },
+=======
+    demo: null,
+    image: null,
+>>>>>>> cb34038 (Improve About page and configure profile assets)
     featured: false,
     longDescription: null,
     role: null,
@@ -193,8 +218,8 @@ export const projects = [
     tech: ['React 18', 'Vite 5', 'React Router', 'JavaScript', 'CSS'],
     year: null,
     // Dépôt et démo : à renseigner dès que les adresses sont confirmées (champ masqué tant qu'il vaut null).
-    github: 'https://github.com/noor-digital/mangora',
-    demo: 'https://noor-digital.github.io/mangora/',
+    github: null,
+    demo: null,
     image: {
       src: 'images/projects/mangora-serie-fiche-desktop.png',
       alt: 'Capture d’écran de MANGORA : fiche d’une série avec son titre, son synopsis, les boutons de lecture et la liste des chapitres.',

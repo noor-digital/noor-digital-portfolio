@@ -1,25 +1,48 @@
-import { getRoute } from '../data/site.js';
+import { aboutPage, getRoute } from '../data/site.js';
 import useDocumentTitle from '../hooks/useDocumentTitle.js';
-import AboutHead from '../components/about/AboutHead.jsx';
-import ProfileBoard from '../components/about/ProfileBoard.jsx';
-import Journey from '../components/about/Journey.jsx';
+import useMediaQuery from '../hooks/useMediaQuery.js';
+import AboutHero from '../components/about/AboutHero.jsx';
+import IdentityIntro from '../components/about/IdentityIntro.jsx';
+import WhyNoor from '../components/about/WhyNoor.jsx';
+import Timeline from '../components/about/Timeline.jsx';
+import SkillsGrid from '../components/about/SkillsGrid.jsx';
 import Principles from '../components/about/Principles.jsx';
-import AboutClose from '../components/about/AboutClose.jsx';
+import WorkTogether from '../components/about/WorkTogether.jsx';
+import AboutFloatingCta from '../components/about/AboutFloatingCta.jsx';
+import PageClose from '../components/home/PageClose.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
 
-// À propos (direction manga) : tête → présentation en cases → parcours → principes → clôture.
-// Le contenu vient de site.js (profile, journey, principles, aboutPage) : rien n’est écrit ici.
+// À propos : hero → qui je suis (+ fiche) → pourquoi NOOR → parcours → compétences → ma manière de travailler →
+// travaillons ensemble → clôture. Tout vient de data/site.js (aboutPage, profile, studio, journey, principles, site) et
+// de data/skills.js : rien n’est écrit ici, rien n’est inventé. Champs vides (photo, CV, dates, LinkedIn, WhatsApp) masqués.
 export default function About() {
   useDocumentTitle(getRoute('/a-propos'));
+  const { closing } = aboutPage;
+  const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  function scrollToIntro() {
+    document.getElementById('ab-who')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
 
   return (
     <div className="home nh nh-ab">
       <ScrollRail />
-      <AboutHead />
-      <ProfileBoard />
-      <Journey />
+      <AboutHero onScrollDown={scrollToIntro} />
+      <IdentityIntro />
+      <WhyNoor />
+      <Timeline />
+      <SkillsGrid />
       <Principles />
-      <AboutClose />
+      <WorkTogether />
+      <PageClose
+        id="about-close"
+        titleLines={closing.titleLines}
+        actions={[
+          { label: closing.primary, to: '/contact' },
+          { label: closing.secondary, to: '/projets', variant: 'ghost' },
+        ]}
+      />
+      <AboutFloatingCta />
     </div>
   );
 }

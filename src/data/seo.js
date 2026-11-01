@@ -112,3 +112,34 @@ export function projectsJsonLd({ site, projects, url }) {
     ],
   };
 }
+
+// Page À propos : ProfilePage + Person. Uniquement des faits présents dans data/site.js ; aucun champ financier.
+export function aboutJsonLd({ site, url }) {
+  const sameAs = [site.github, site.linkedin].filter(Boolean);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        '@id': `${url}#page`,
+        url,
+        name: `À propos — ${site.name}`,
+        inLanguage: 'fr',
+        mainEntity: { '@id': `${url}#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${url}#person`,
+        name: site.owner,
+        jobTitle: site.jobTitle,
+        url: site.siteUrl,
+        email: site.email,
+        address: { '@type': 'PostalAddress', addressLocality: 'Dakar', addressCountry: 'SN' },
+        alumniOf: { '@type': 'CollegeOrUniversity', name: 'UVS' },
+        knowsAbout: ['HTML', 'CSS', 'JavaScript', 'React', 'PHP', 'Laravel', 'MySQL'],
+        worksFor: { '@type': 'Organization', name: site.name },
+        ...(sameAs.length ? { sameAs } : {}),
+      },
+    ],
+  };
+}

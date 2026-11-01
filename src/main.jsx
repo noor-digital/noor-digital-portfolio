@@ -30,7 +30,6 @@ import './styles/about.css';
 import './styles/projects.css';
 import './styles/services.css';
 import './styles/contact.css';
-import './styles/heroes.css';
 import './styles/tech.css';
 import './styles/compact.css';
 
