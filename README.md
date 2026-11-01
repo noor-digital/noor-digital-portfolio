@@ -5,16 +5,24 @@
 
 **Live site (once deployed):** <https://noor-digital.github.io/noor-digital-portfolio/>
 
-<!--
-  SCREENSHOT PLACEHOLDER
-  After running the site locally, add real captures to `docs/screenshots/` and reference them here, e.g.:
+## Project gallery — real application captures
 
-  ![Home page, desktop](docs/screenshots/home-desktop.png)
-  ![Projects page, mobile](docs/screenshots/projects-mobile.png)
--->
+The following images are real screenshots captured from the running project demos (1600 × 1000).
 
-> **Screenshot to add.** This section is intentionally left empty until a real capture of the running portfolio is available.
-
+<table>
+<tr>
+<td width="50%"><a href="https://noor-digital.github.io/aeris-meteo/"><img src="public/assets/aeris-meteo.png" width="100%" alt="Aeris Météo live screenshot" /></a><strong>Aeris Météo</strong></td>
+<td width="50%"><a href="https://noor-digital.github.io/nova-shop/"><img src="public/assets/nova-shop.png" width="100%" alt="NOVA SHOP live screenshot" /></a><strong>NOVA SHOP</strong></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://sabaly-consulting-green.vercel.app/"><img src="public/assets/sabaly-consulting.png" width="100%" alt="Sabaly Consulting live screenshot" /></a><strong>Sabaly Consulting</strong></td>
+<td width="50%"><a href="https://to-do-list-sigma-woad-32.vercel.app/"><img src="public/assets/todo-list.png" width="100%" alt="To-Do List live screenshot" /></a><strong>To-Do List</strong></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://vocal-queue-system.vercel.app/"><img src="public/assets/vocal-queue-system.png" width="100%" alt="Vocal Queue System live screenshot" /></a><strong>Vocal Queue System</strong></td>
+<td width="50%"><a href="https://noor-digital.github.io/mangora/"><img src="public/images/projects/mangora-serie-fiche-desktop.png" width="100%" alt="MANGORA series page screenshot" /></a><strong>MANGORA</strong></td>
+</tr>
+</table>
 ---
 
 ## Overview
