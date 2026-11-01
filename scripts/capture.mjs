@@ -71,9 +71,9 @@ if (captured.length) {
     if (end < 0) continue;
     const section = source.slice(start, end);
     const replacement = `image: { src: 'assets/${project.slug}.png', alt: 'Capture d’écran de ${project.name}', width: ${WIDTH}, height: ${HEIGHT} },`;
-    const updated = section.replace(/image:\\s*null,/, replacement);
+    const updated = section.replace(/image:\s*null,/, replacement);
     source = source.slice(0, start) + updated + source.slice(end);
   }
   await writeFile(dataPath, source, 'utf8');
-  console.log(`\\n${captured.length} capture(s) ajoutée(s) dans src/data/projects.js.`);
+  console.log(`\n${captured.length} capture(s) ajoutée(s) dans src/data/projects.js.`);
 }
