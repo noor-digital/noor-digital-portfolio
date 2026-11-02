@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { EASE, EASE_IN } from '../lib/motion.js';
 import { useScrollManager } from './ScrollManager.jsx';
 import Home from '../pages/Home.jsx';
 import About from '../pages/About.jsx';
