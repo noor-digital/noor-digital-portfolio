@@ -1,5 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NOOR DIGITAL">
-  <rect width="64" height="64" rx="12" fill="#0E0F11"/>
-  <path d="M19 47V17M45 47V17" fill="none" stroke="#ECE6DA" stroke-width="2.5" stroke-linecap="square"/>
-  <path d="M19 17L45 47" fill="none" stroke="#E9B44C" stroke-width="2.5" stroke-linecap="square"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NOOR DIGITAL — Manga">
+  <rect width="64" height="64" rx="14" fill="#0E0F11"/>
+  <path d="M7 18L18 23M5 31L16 32M8 45L19 40" fill="none" stroke="#E9B44C" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M13 32C22 19 42 15 55 32C42 49 22 45 13 32Z" fill="#ECE6DA"/>
+  <path d="M19 32C27 23 41 22 49 32C41 42 27 41 19 32Z" fill="#E9B44C"/>
+  <ellipse cx="34" cy="32" rx="6.5" ry="9" fill="#0E0F11"/>
+  <circle cx="36.5" cy="28.5" r="2.2" fill="#ECE6DA"/>
+  <path d="M47 14L54 9M51 20L60 18" fill="none" stroke="#ECE6DA" stroke-width="1.8" stroke-linecap="round"/>
 </svg>
