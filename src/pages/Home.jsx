@@ -4,14 +4,12 @@ import Hero from '../components/home/Hero.jsx';
 import Approach from '../components/home/Approach.jsx';
 import HomeServices from '../components/home/HomeServices.jsx';
 import HomeProjects from '../components/home/HomeProjects.jsx';
-import Method from '../components/home/Method.jsx';
 import ContactScene from '../components/home/ContactScene.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
 
-// Accueil (V4, manga cinématique) : un récit en six temps.
-//   Hero (cinématique) → Présentation (cases) → Services (calme) → Projets (bande horizontale)
-//   → Méthode et technologies (le rayon descend) → Contact (l’aube).
-// L’en-tête et le pied de page propres à l’accueil sont gérés par Header.jsx et Footer.jsx.
+// Accueil : une présentation visuelle courte qui conduit vers les contenus détaillés.
+// Le parcours et les compétences sont développés sur À propos ; la méthode complète
+// est réservée à Services ; les réalisations détaillées restent sur Projets.
 export default function Home() {
   useDocumentTitle(getRoute('/'));
 
@@ -22,7 +20,6 @@ export default function Home() {
       <Approach />
       <HomeServices />
       <HomeProjects />
-      <Method />
       <ContactScene />
     </div>
   );

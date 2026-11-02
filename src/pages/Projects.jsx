@@ -12,7 +12,6 @@ import ProjectCard from '../components/projects/ProjectCard.jsx';
 import ProjectList from '../components/projects/ProjectList.jsx';
 import ProjectDrawer from '../components/projects/ProjectDrawer.jsx';
 import EmptyState from '../components/projects/EmptyState.jsx';
-import HowIWork from '../components/projects/HowIWork.jsx';
 import ProjectsFloatingCta from '../components/projects/ProjectsFloatingCta.jsx';
 import PageClose from '../components/home/PageClose.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
@@ -208,8 +207,6 @@ export default function Projects() {
             )}
           </div>
         </section>
-
-        <HowIWork />
 
         <PageClose
           id="projects-close"

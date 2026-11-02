@@ -5,10 +5,8 @@ import useDocumentTitle from '../hooks/useDocumentTitle.js';
 import useActiveId from '../hooks/useActiveId.js';
 import ServicesHero from '../components/services/ServicesHero.jsx';
 import ServicesStack from '../components/services/ServicesStack.jsx';
-import WhyMe from '../components/services/WhyMe.jsx';
 import ServicesProcess from '../components/services/ServicesProcess.jsx';
 import WorkTypes from '../components/services/WorkTypes.jsx';
-import AfterContact from '../components/services/AfterContact.jsx';
 import Faq from '../components/services/Faq.jsx';
 import Testimonials from '../components/services/Testimonials.jsx';
 import FloatingCta from '../components/services/FloatingCta.jsx';
@@ -51,10 +49,8 @@ export default function Services() {
       <ScrollRail />
       <ServicesHero active={active} onGo={goTo} />
       <ServicesStack active={active} />
-      <WhyMe />
       <ServicesProcess />
       <WorkTypes />
-      <AfterContact />
       <Faq />
       <Testimonials />
       <PageClose id="services-close" titleLines={closing.titleLines} actions={actions} />
