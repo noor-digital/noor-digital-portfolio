@@ -5,7 +5,6 @@ import ContactHero from '../components/contact/ContactHero.jsx';
 import FormSection from '../components/contact/FormSection.jsx';
 import WhereWhen from '../components/contact/WhereWhen.jsx';
 import ContactFaq from '../components/contact/ContactFaq.jsx';
-import ContactTestimonials from '../components/contact/ContactTestimonials.jsx';
 import OtherChannels from '../components/contact/OtherChannels.jsx';
 import ContactFloatingCta from '../components/contact/ContactFloatingCta.jsx';
 import PageClose from '../components/home/PageClose.jsx';
@@ -37,7 +36,6 @@ export default function Contact() {
       <FormSection />
       <WhereWhen />
       <ContactFaq />
-      <ContactTestimonials />
       <OtherChannels />
       <PageClose
         id="contact-close"
