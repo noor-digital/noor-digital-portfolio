@@ -12,7 +12,7 @@ function TitleLine({ children, delay, outline = false, reduce }) {
     <span className="nh-hero__mask">
       <motion.span
         className={`nh-hero__line${outline ? ' nh-hero__line--outline' : ''}`}
-        initial={reduce ? false : { y: '108%', skewX: -10 }}
+        initial={false}
         animate={{ y: '0%', skewX: 0 }}
         transition={{ duration: 0.9, delay, ease: EASE }}
       >
@@ -27,7 +27,7 @@ function Rise({ delay, children, className }) {
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 18 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay, ease: EASE }}
     >
@@ -64,7 +64,7 @@ export default function Hero() {
   return (
     <section className={`nh-hero${flat ? ' nh-hero--still' : ''}`} ref={sectionRef} aria-label="Présentation">
       <div className="nh-hero__stick" ref={hostRef}>
-        <HeroScene frame={frame} intro={!reduce} parallax={!reduce} progress={progress} hostRef={hostRef} />
+        <HeroScene frame={frame} intro={false} parallax={!reduce} progress={progress} hostRef={hostRef} />
 
         {/* Cadre de case : quatre coins, comme les repères d’une planche. */}
         <span className="nh-hero__corner nh-hero__corner--tl" aria-hidden="true" />
@@ -75,7 +75,7 @@ export default function Hero() {
         <motion.p
           className="nh-hero__spine"
           aria-hidden="true"
-          initial={reduce ? false : { opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.9 }}
         >
