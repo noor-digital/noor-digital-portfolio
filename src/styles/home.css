@@ -776,8 +776,6 @@
   }
 }
 
-/* ── Pied de page de l’accueil (provisoire, complété plus bas) ── */
-
 /* ── Éléments communs : titres, cases ──────────────────────── */
 
 .nh-title {
@@ -1752,96 +1750,466 @@
   }
 }
 
-/* ── Pied de page de l’accueil ─────────────────────────────── */
+/* ── Pied de page des pages manga ──────────────────────────────
+   Trois zones (identité · navigation · contact), puis une dernière ligne.
+   Codes repris de l’accueil : pans coupés (skew −35°), liserés turquoise, texte « au trait ».
+   Aucune lueur : la lumière trace, elle ne rayonne pas. */
 
 .nh-footer {
   position: relative;
   z-index: 4;
-  padding-block: 56px 28px;
+  padding-block: clamp(44px, 5.5vw, 76px) 0;
   background: var(--nh-ink);
   color: var(--nh-white);
   font-family: var(--nh-text);
+  overflow-x: clip;
 }
-.nh-footer__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px 40px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--nh-line);
-}
-.nh-footer__brand p {
-  margin-top: 8px;
-  font-size: 0.97rem;
-  color: var(--nh-mist);
-}
-.nh-footer__nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-}
-.nh-footer__nav a {
+
+/* Filet de tête : la gouttière d’une page de manga, avec un trait turquoise incliné au départ. */
+.nh-footer__rule {
   position: relative;
-  display: inline-block;
-  padding: 10px 8px;
-  font-weight: 500;
-  color: var(--nh-mist);
+  display: block;
+  height: 1px;
+  margin-bottom: clamp(36px, 5vw, 60px);
+  background: var(--nh-line);
 }
-.nh-footer__nav a::after {
+.nh-footer__rule::before {
   content: '';
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 5px;
+  left: 0;
+  top: -2px;
+  width: 88px;
+  height: 5px;
+  background: var(--nh-turq);
+  transform: skewX(-35deg);
+  transform-origin: left;
+}
+
+.nh-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+}
+
+/* Petit titre de colonne : un trait turquoise incliné, puis le mot en capitales. */
+.nh-footer__label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  font-family: var(--nh-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nh-mist);
+}
+.nh-footer__label::before {
+  content: '';
+  width: 18px;
   height: 3px;
   background: var(--nh-turq);
-  transform: scaleX(0) skewX(-35deg);
-  transform-origin: left;
-  transition: transform 0.35s var(--nh-ease);
+  transform: skewX(-35deg);
 }
-.nh-footer__nav a:hover,
-.nh-footer__nav a[aria-current='page'] {
+
+/* A — Identité ─────────────────────────────────────────────── */
+
+.nh-footer__signature {
+  margin: 28px 0 0;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 4.4vw, 3.9rem);
+  line-height: 0.9;
+  letter-spacing: -0.012em;
+  word-spacing: 0.08em;
   color: var(--nh-white);
 }
-.nh-footer__nav a:hover::after,
-.nh-footer__nav a[aria-current='page']::after {
-  transform: scaleX(1) skewX(-35deg);
+.nh-footer__signature span {
+  display: block;
+  padding-right: 0.12em;
+}
+.nh-footer__signature-line {
+  color: transparent;
+  -webkit-text-stroke: clamp(1.25px, 0.14vw, 2px) var(--nh-white);
+}
+.nh-footer__owner {
+  display: grid;
+  gap: 4px;
+  margin: 26px 0 0;
+  font-size: 0.97rem;
+  line-height: 1.5;
+  color: var(--nh-mist);
+}
+.nh-footer__owner strong {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--nh-white);
+}
+.nh-footer__stack {
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: rgba(215, 224, 234, 0.7);
+}
+
+/* B — Navigation ───────────────────────────────────────────── */
+
+.nh-footer__nav ul,
+.nh-footer__contact ul {
+  border-top: 1px solid var(--nh-line);
+}
+.nh-footer__nav li,
+.nh-footer__contact li {
+  border-bottom: 1px solid var(--nh-line);
+}
+
+.nh-footer__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  padding: 6px 4px;
+  font-family: var(--nh-display);
+  font-stretch: 88%;
+  font-weight: 700;
+  font-size: 1.18rem;
+  color: var(--nh-mist);
+  transition: color 0.3s ease;
+}
+/* Trait de lumière : il se pose sous la ligne, de gauche à droite. */
+.nh-footer__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--nh-turq);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--nh-ease);
+}
+.nh-footer__idx {
+  min-width: 2.2ch;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(215, 224, 234, 0.55);
+  transition: color 0.3s ease;
+}
+.nh-footer__txt {
+  flex: 1;
+  transition: transform 0.4s var(--nh-ease);
+}
+.nh-footer__arrow {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s var(--nh-ease);
+}
+.nh-footer__link:focus-visible {
+  outline-offset: -2px;
+}
+.nh-footer__link:focus-visible,
+.nh-footer__link[aria-current='page'] {
+  color: var(--nh-white);
+}
+.nh-footer__link:focus-visible::after,
+.nh-footer__link[aria-current='page']::after {
+  transform: scaleX(1);
+}
+.nh-footer__link:focus-visible .nh-footer__idx,
+.nh-footer__link[aria-current='page'] .nh-footer__idx {
+  color: var(--nh-turq);
+}
+.nh-footer__link:focus-visible .nh-footer__arrow,
+.nh-footer__link[aria-current='page'] .nh-footer__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.nh-footer__link:focus-visible .nh-footer__txt {
+  transform: translateX(6px);
+}
+
+/* C — Contact et réseaux ───────────────────────────────────── */
+
+.nh-footer__channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 68px;
+  padding: 10px 4px;
+  color: var(--nh-white);
+}
+.nh-footer__channel:focus-visible {
+  outline-offset: -2px;
+}
+.nh-footer__ico {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  color: var(--nh-white);
+  border: 2px solid rgba(215, 224, 234, 0.5);
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+.nh-footer__ch-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.nh-footer__ch-label {
+  font-family: var(--nh-display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(215, 224, 234, 0.7);
+}
+.nh-footer__ch-value {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  color: var(--nh-white);
+}
+.nh-footer__out {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: rgba(215, 224, 234, 0.6);
+  transition:
+    color 0.25s ease,
+    transform 0.35s var(--nh-ease);
+}
+.nh-footer__channel:focus-visible .nh-footer__ico {
+  color: var(--nh-ink);
+  background: var(--nh-turq);
+  border-color: var(--nh-turq);
+}
+.nh-footer__channel:focus-visible .nh-footer__out {
+  color: var(--nh-turq);
+  transform: translate(2px, -2px);
+}
+
+/* Survol : réservé aux appareils qui en ont un (pas de survol « collé » au toucher). */
+@media (hover: hover) {
+  .nh-footer__link:hover {
+    color: var(--nh-white);
+  }
+  .nh-footer__link:hover::after {
+    transform: scaleX(1);
+  }
+  .nh-footer__link:hover .nh-footer__idx {
+    color: var(--nh-turq);
+  }
+  .nh-footer__link:hover .nh-footer__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nh-footer__link:hover .nh-footer__txt {
+    transform: translateX(6px);
+  }
+  .nh-footer__channel:hover .nh-footer__ico {
+    color: var(--nh-ink);
+    background: var(--nh-turq);
+    border-color: var(--nh-turq);
+  }
+  .nh-footer__channel:hover .nh-footer__out {
+    color: var(--nh-turq);
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Nom dessiné au trait : signature graphique, purement décorative. */
+.nh-footer__mark {
+  margin: clamp(40px, 6vw, 76px) 0 0;
+  padding: 0.04em 0.1em 0 0.04em;
+  overflow: hidden;
+  font-family: var(--nh-display);
+  font-stretch: 62%;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  /* Calé sur la largeur du conteneur : le nom occupe toute la ligne, de 360 px à 1920 px. */
+  font-size: min(16.4vw, 14.8rem);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  word-spacing: 0.14em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) rgba(215, 224, 234, 0.2);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Dernière ligne ───────────────────────────────────────────── */
+
+.nh-footer__bottom {
+  display: grid;
+  gap: 18px;
+  align-items: center;
+  margin-top: clamp(22px, 3vw, 36px);
+  padding-block: 22px calc(26px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--nh-line);
+  font-size: 0.92rem;
+  color: var(--nh-mist);
+}
+.nh-footer__copy {
+  margin: 0;
+}
+.nh-footer__clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+/* Petit repère incliné devant l’heure : le même trait que les titres de colonne. */
+.nh-footer__clock::before {
+  content: '';
+  width: 14px;
+  height: 3px;
+  background: var(--nh-turq);
+  transform: skewX(-35deg);
 }
 .nh-footer__clock .mono {
   font-family: var(--nh-text);
-  font-size: 0.97rem;
+  font-size: 0.92rem;
   letter-spacing: 0;
   text-transform: none;
   color: var(--nh-mist);
 }
-.nh-footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px 32px;
-  padding-top: 24px;
-  font-size: 0.92rem;
-  color: var(--nh-mist);
-}
-.nh-footer__top {
-  min-height: 44px;
-  padding-inline: 4px;
-  font-weight: 700;
+.nh-footer__clock .clock__time {
+  font-variant-numeric: tabular-nums;
   color: var(--nh-white);
-  text-decoration: underline;
-  text-decoration-color: var(--nh-turq);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 6px;
 }
+
+/* Retour en haut : même forme à pans coupés que les boutons de l’accueil. */
+.nh-footer__top {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 30px;
+  font-family: var(--nh-display);
+  font-stretch: 88%;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--nh-white);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.nh-footer__top::before,
+.nh-footer__top::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+.nh-footer__top::before {
+  inset: 0;
+  background: rgba(241, 245, 249, 0.6);
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  transition: background-color 0.3s ease;
+}
+.nh-footer__top::after {
+  inset: 2px;
+  background: var(--nh-ink);
+  clip-path: polygon(13px 0, 100% 0, calc(100% - 13px) 100%, 0 100%);
+  transition: background-color 0.3s ease;
+}
+.nh-footer__top-icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  transition: transform 0.4s var(--nh-ease);
+}
+.nh-footer__top:focus-visible {
+  color: var(--nh-ink);
+}
+.nh-footer__top:focus-visible::before,
+.nh-footer__top:focus-visible::after {
+  background: var(--nh-turq);
+}
+.nh-footer__top:focus-visible .nh-footer__top-icon {
+  transform: translateY(-3px);
+}
+@media (hover: hover) {
+  .nh-footer__top:hover {
+    color: var(--nh-ink);
+  }
+  .nh-footer__top:hover::before,
+  .nh-footer__top:hover::after {
+    background: var(--nh-turq);
+  }
+  .nh-footer__top:hover .nh-footer__top-icon {
+    transform: translateY(-3px);
+  }
+}
+
 .nh-footer__credits {
-  margin-top: 16px;
+  margin: 0;
+  padding-bottom: 28px;
   font-size: 0.85rem;
   color: var(--nh-mist);
 }
 .nh-footer__credits a {
   text-decoration: underline;
+}
+
+/* Tablette : l’identité sur toute la largeur, navigation et contact côte à côte. */
+@media (min-width: 720px) {
+  .nh-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px clamp(32px, 5vw, 64px);
+  }
+  .nh-footer__identity {
+    grid-column: 1 / -1;
+  }
+  .nh-footer__bottom {
+    grid-template-columns: 1fr auto auto;
+    gap: 18px clamp(24px, 4vw, 48px);
+  }
+}
+
+/* Ordinateur : trois colonnes, séparées par un filet comme les gouttières d’une planche. */
+@media (min-width: 1040px) {
+  .nh-footer__grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr) minmax(0, 1.05fr);
+    gap: 0;
+  }
+  .nh-footer__identity {
+    grid-column: auto;
+    padding-right: clamp(32px, 4vw, 64px);
+  }
+  .nh-footer__nav,
+  .nh-footer__contact {
+    padding-left: clamp(32px, 4vw, 64px);
+    border-left: 1px solid var(--nh-line);
+  }
+}
+
+/* Petit écran : tout s’empile, le bouton prend la largeur pour rester facile à toucher. */
+@media (max-width: 719px) {
+  .nh-footer__top {
+    width: 100%;
+  }
 }
 
 /* Mouvement réduit : plus de rideaux ni de zoom, les éléments sont simplement là. */
