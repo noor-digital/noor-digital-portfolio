@@ -7,7 +7,6 @@ import WhyNoor from '../components/about/WhyNoor.jsx';
 import Timeline from '../components/about/Timeline.jsx';
 import SkillsGrid from '../components/about/SkillsGrid.jsx';
 import Principles from '../components/about/Principles.jsx';
-import WorkTogether from '../components/about/WorkTogether.jsx';
 import AboutFloatingCta from '../components/about/AboutFloatingCta.jsx';
 import PageClose from '../components/home/PageClose.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
@@ -33,7 +32,6 @@ export default function About() {
       <Timeline />
       <SkillsGrid />
       <Principles />
-      <WorkTogether />
       <PageClose
         id="about-close"
         titleLines={closing.titleLines}
