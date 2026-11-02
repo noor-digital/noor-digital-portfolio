@@ -113,7 +113,7 @@ export const projects = [
     tech: ['HTML5', 'CSS3', 'JavaScript (ES modules)', 'localStorage'],
     year: null,
     github: 'https://github.com/noor-digital/expense-tracker',
-    demo: null,
+    demo: 'https://noor-digital.github.io/expense-tracker/',
     image: null,
     featured: false,
     longDescription: null,
@@ -193,8 +193,8 @@ export const projects = [
     tech: ['React 18', 'Vite 5', 'React Router', 'JavaScript', 'CSS'],
     year: null,
     // DÃ©pÃ´t et dÃ©mo : Ã  renseigner dÃ¨s que les adresses sont confirmÃ©es (champ masquÃ© tant qu'il vaut null).
-    github: null,
-    demo: null,
+    github: 'https://github.com/noor-digital/mangora',
+    demo: 'https://noor-digital.github.io/mangora/',
     image: {
       src: 'images/projects/mangora-serie-fiche-desktop.png',
       alt: 'Capture dâ€™Ã©cran de MANGORA : fiche dâ€™une sÃ©rie avec son titre, son synopsis, les boutons de lecture et la liste des chapitres.',
