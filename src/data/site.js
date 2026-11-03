@@ -623,10 +623,9 @@ export const servicesPage = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// Page Contact. Le site est statique (GitHub Pages, sans backend) : le formulaire envoie via un service
-// de formulaires statique si VITE_FORM_ENDPOINT est défini (voir src/lib/sendForm.js et le README) ;
-// sinon, ou si l’envoi échoue, il propose la messagerie (mailto) et la copie du message, et le dit
-// clairement. Rien n’est jamais présenté comme envoyé s’il ne l’est pas.
+// Page Contact. Le site est statique (GitHub Pages, sans backend) : le formulaire prépare un e-mail
+// avec un lien mailto et propose de copier le message. L’envoi est effectué par le visiteur depuis
+// son logiciel de messagerie ; le site ne prétend jamais avoir envoyé le message lui-même.
 // Les canaux et engagements viennent de `site` : une valeur à null reste masquée.
 // ─────────────────────────────────────────────────────────────
 
