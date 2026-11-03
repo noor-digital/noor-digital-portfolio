@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { EASE } from '../../lib/motion.js';
 import { home } from '../../data/site.js';
+import { noor } from '../../data/values.js';
 import TitleReveal from './TitleReveal.jsx';
 import { CloseUpArt, PanoramaArt } from './art/PanelArt.jsx';
 
@@ -63,6 +64,10 @@ export default function Approach() {
           <Panel className="nh-board__b" poly="polygon(5% 0, 100% 0, 100% 100%, 0 100%)" delay={0.12}>
             <div className="nh-narration">
               <span className="nh-narration__bar" aria-hidden="true" />
+              {/* Le nom en arabe, à côté de son sens : détail calligraphique décoratif (le sens est dans le titre). */}
+              <span className="isl-ar isl-ar--kufi isl-noor" lang="ar" dir="rtl" aria-hidden="true">
+                {noor.ar}
+              </span>
               <h3>{meaning.title}</h3>
               <p>{meaning.text}</p>
             </div>

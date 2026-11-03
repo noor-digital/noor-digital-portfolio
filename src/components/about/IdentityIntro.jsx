@@ -1,6 +1,7 @@
 import { aboutPage, profile } from '../../data/site.js';
 import Reveal from '../Reveal.jsx';
 import ProfileCard from './ProfileCard.jsx';
+import Basmala from './Basmala.jsx';
 
 // Découpe la phrase d’accroche pour mettre les mots clés en couleur (la source reste profile.paragraphs[0]).
 function Headline({ text, highlights }) {
@@ -28,6 +29,9 @@ export default function IdentityIntro() {
 
   return (
     <section id="ab-who" className="nh-ab-sec nh-ab-sec--night" aria-labelledby="ab-who-title">
+      <div className="container">
+        <Basmala />
+      </div>
       <div className="container nh-ab-who">
         <div className="nh-ab-who__text">
           <Reveal as="h2" className="nh-ab-kick" id="ab-who-title">
