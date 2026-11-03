@@ -48,16 +48,16 @@ export const services = [
   },
   {
     id: 'entreprises',
-    short: 'Entreprises',
-    title: 'Création et amélioration de sites pour les entreprises',
+    short: 'Maintenance',
+    title: 'Amélioration et maintenance de sites existants',
     ideal:
-      'Un site existant devenu difficile à lire sur mobile, à maintenir ou à faire évoluer.',
+      'Un site déjà en ligne qui doit être corrigé, clarifié ou préparé à de nouvelles évolutions.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Git'],
     description:
-      'Création d’une présence web claire, ou amélioration d’un site existant : lisibilité, structure, adaptation mobile et facilité de maintenance.',
+      'Diagnostic et améliorations ciblées d’un site existant : lisibilité, adaptation mobile, corrections d’interface et facilité de maintenance.',
     deliverables: [
-      'Analyse simple de l’existant',
-      'Liste d’améliorations classées par priorité',
+      'Examen des pages et des problèmes signalés',
+      'Corrections classées selon leur priorité',
       'Mises à jour du code et vérification après modification',
     ],
   },
