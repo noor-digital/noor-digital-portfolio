@@ -31,14 +31,12 @@ Les liens ci-dessous sont ceux renseignés dans les données du portfolio. Les c
 | Projet | Description courte | Démo |
 |---|---|---|
 | Sabaly Consulting | Site vitrine multipage | [Ouvrir](https://sabaly-consulting-green.vercel.app/) |
-| To-Do List | Liste de tâches en JavaScript avec sauvegarde locale | [Ouvrir](https://to-do-list-sigma-woad-32.vercel.app/) |
-| Vocal Queue System | Gestion simple d’une file avec synthèse vocale | [Ouvrir](https://vocal-queue-system.vercel.app/) |
 | Expense Tracker | Suivi de dépenses, filtres, statistiques et CSV | [Ouvrir](https://noor-digital.github.io/expense-tracker/) |
 | Aeris Météo | Météo avec prévisions et ambiance dynamique | [Ouvrir](https://noor-digital.github.io/aeris-meteo/) |
 | NOVA SHOP | Boutique de démonstration avec panier et favoris | [Ouvrir](https://noor-digital.github.io/nova-shop/) |
 | MANGORA | Plateforme de découverte et lecture de mangas | [Ouvrir](https://noor-digital.github.io/mangora/) |
 
-Les dépôts correspondants sont accessibles depuis les fiches projets du site. Les dates et rôles détaillés ne sont pas affichés lorsqu’ils ne sont pas confirmés.
+Les dépôts correspondants sont accessibles depuis les fiches projets du site. La sélection privilégie les projets qui montrent une diversité de réalisations et de fonctionnalités. Les dates et rôles détaillés ne sont pas affichés lorsqu’ils ne sont pas confirmés.
 
 ## Services
 

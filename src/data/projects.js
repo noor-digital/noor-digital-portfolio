@@ -55,56 +55,6 @@ export const projects = [
     gallery: [],
   },
   {
-    slug: 'todo-list',
-    name: 'To-Do List',
-    description:
-      'Liste de tÃ¢ches en JavaScript natif : ajout, validation, suppression, et sauvegarde dans le navigateur grÃ¢ce au localStorage.',
-    category: 'Outils web',
-    tech: ['HTML5', 'CSS3', 'JavaScript', 'localStorage'],
-    year: null,
-    github: 'https://github.com/noor-digital/todo-list',
-    demo: 'https://to-do-list-sigma-woad-32.vercel.app/',
-    image: { src: 'assets/todo-list.png', alt: 'Capture dâ€™Ã©cran de To-Do List', width: 1600, height: 1000 },
-    featured: false,
-    longDescription: null,
-    role: null,
-    features: [
-      'Ajout de tÃ¢ches',
-      'Validation de la saisie',
-      'Suppression de tÃ¢ches',
-      'Sauvegarde dans le navigateur (localStorage)',
-    ],
-    learnings: [
-      'JavaScript natif, sans framework',
-      'Persistance des donnÃ©es avec localStorage',
-    ],
-    gallery: [],
-  },
-  {
-    slug: 'vocal-queue-system',
-    name: 'Vocal Queue System',
-    description:
-      'Compteur de file dâ€™attente de 0 Ã  10 avec annonce vocale en franÃ§ais, grÃ¢ce Ã  la synthÃ¨se vocale du navigateur.',
-    category: 'Outils web',
-    tech: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap 5', 'Web Speech API'],
-    year: null,
-    github: 'https://github.com/noor-digital/vocal-queue-system',
-    demo: 'https://vocal-queue-system.vercel.app/',
-    image: { src: 'assets/vocal-queue-system.png', alt: 'Capture dâ€™Ã©cran de Vocal Queue System', width: 1600, height: 1000 },
-    featured: false,
-    longDescription: null,
-    role: null,
-    features: [
-      'Compteur de file dâ€™attente de 0 Ã  10',
-      'Annonce vocale en franÃ§ais',
-    ],
-    learnings: [
-      'SynthÃ¨se vocale du navigateur (Web Speech API)',
-      'Interface construite avec Bootstrap 5',
-    ],
-    gallery: [],
-  },
-  {
     slug: 'expense-tracker',
     name: 'Expense Tracker',
     description:

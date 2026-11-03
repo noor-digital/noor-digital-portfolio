@@ -68,7 +68,7 @@ export const routes = [
     label: 'Projets',
     title: 'Projets — NOOR DIGITAL',
     description:
-      'Réalisations web en JavaScript : site vitrine, outils du quotidien, application météo, boutique de démonstration et plateforme de lecture de mangas.',
+      'Réalisations web : site vitrine, suivi de dépenses, application météo, boutique de démonstration et plateforme de lecture de mangas.',
   },
   {
     path: '/services',
