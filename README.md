@@ -311,3 +311,15 @@ Pour chaque dépôt de projet (ce sont des sites statiques, sans étape de build
 - Textes et faits : `aboutPage`, `profile`, `studio`, `journey`, `principles` et `site` dans `src/data/site.js` ; compétences dans `src/data/skills.js`. Rien n'est écrit dans les composants.
 - Champs optionnels (masqués s'ils sont vides) : `site.cv` (lien du CV), `site.photo` (portrait), `site.linkedin`, `site.whatsapp`, et par étape du parcours `period`, `description`, `skills`.
 - Aucune mention financière, aucune date, aucun chiffre ni diplôme inventé.
+
+## Identité islamique (proposition, à valider)
+
+L’identité musulmane du portfolio passe par quelques détails discrets, tous réglés dans `src/data/values.js` (textes) et `src/styles/islamic.css` (styles, préfixe `isl-`) :
+
+- **Basmala** et sa traduction, une seule fois, en ouverture de « Qui je suis » (page À propos).
+- **Section « Mes valeurs »** (Amanah, Ihsan, Sidq, Itqan) et **une seule citation** sur l’excellence : hadith rapporté par Muslim, n° 1955. Ne pas ajouter de citation sans source vérifiée.
+- **« نور »** (le nom NOOR en arabe) à côté de sa signification, sur l’accueil et dans « Pourquoi NOOR », et une rosace géométrique de lumière dans « Pourquoi NOOR » (`components/islamic/Geometry.jsx`).
+- Polices arabes auto-hébergées : Noto Naskh Arabic (textes) et Reem Kufi (mots-titres), téléchargées uniquement par les pages qui affichent de l’arabe.
+- Texte arabe : toujours `lang="ar" dir="rtl"`, sans espacement de lettres (il casserait les liaisons). Les détails purement décoratifs sont en `aria-hidden`.
+
+Pour retirer cette évolution : supprimer `<Values />` dans `pages/About.jsx`, `<Basmala />` dans `IdentityIntro.jsx`, la rosace et le mot arabe dans `WhyNoor.jsx`, le mot arabe dans `home/Approach.jsx`, le dernier paragraphe de `profile.paragraphs` dans `data/site.js`, puis les imports de `main.jsx`.

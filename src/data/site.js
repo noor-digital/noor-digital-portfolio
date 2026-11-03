@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // Contenu éditable du site. Modifiez les textes ici : aucun
 // besoin de toucher aux composants React.
 // ─────────────────────────────────────────────────────────────
@@ -122,6 +122,7 @@ export const profile = {
     'Je suis Mamadou Dia Seck, étudiant en informatique à l’UVS, spécialisé dans le développement web et d’applications mobiles. J’ai terminé une formation Full Stack Web Development.',
     'Je conçois des interfaces et des applications dynamiques avec HTML, CSS, JavaScript, React, PHP, Laravel et MySQL, en cherchant un code clair et facile à maintenir.',
     'Je m’intéresse à la création de solutions numériques utiles, maintenables et adaptées aux besoins des entreprises.',
+    'Dans mon parcours, je souhaite placer la sincérité, l’honnêteté et le souci du travail bien fait au cœur de chacune de mes réalisations. Des principes qui guident ma manière d’apprendre, de collaborer et de construire.',
   ],
 };
 
@@ -819,3 +820,4 @@ export const contactPage = {
     secondary: 'Voir les services',
   },
 };
+

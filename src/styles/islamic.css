@@ -1,0 +1,251 @@
+/* ─────────────────────────────────────────────────────────────
+   Identité islamique — détails discrets, tous préfixés `isl-`.
+   S’appuie sur les variables de la direction manga (--nh-*) : même palette, mêmes surfaces, aucune nouvelle couleur.
+   Rien ici ne modifie les règles existantes (home.css, about.css, footer) ; ce fichier s’ajoute après elles.
+   Éléments : texte arabe (.isl-ar), basmala, séparateur, section « Mes valeurs », citation, rosace « Pourquoi NOOR »,
+   détail calligraphique « نور ».
+   Accessibilité : texte arabe en lang="ar" dir="rtl" ; aucun espacement de lettres sur l’arabe (il casserait les liaisons) ;
+   aucune animation CSS ici (le mouvement de la rosace passe par Motion et respecte « mouvement réduit »).
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Texte arabe ───────────────────────────────────────────── */
+
+/* Naskh (lisible, sobre) pour les textes ; .isl-ar--kufi (géométrique) pour les mots-titres.
+   Polices auto-hébergées (Fontsource), chargées seulement par les pages qui affichent de l’arabe. */
+.isl-ar {
+  font-family: 'Noto Naskh Arabic', 'Amiri', 'Traditional Arabic', 'Geeza Pro', 'Segoe UI', 'Noto Sans Arabic', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  font-synthesis: none;
+  letter-spacing: 0;
+  word-spacing: normal;
+  text-transform: none;
+  text-wrap: balance;
+  unicode-bidi: isolate;
+}
+.isl-ar--kufi {
+  font-family: 'Reem Kufi', 'Noto Kufi Arabic', 'Geeza Pro', 'Segoe UI', 'Noto Sans Arabic', sans-serif;
+}
+
+/* ── Séparateur ────────────────────────────────────────────── */
+
+.isl-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: min(100%, 22rem);
+  color: var(--nh-turq);
+}
+.isl-rule__line {
+  flex: 1;
+  height: 1px;
+}
+.isl-rule__line--l {
+  background: linear-gradient(90deg, transparent, rgba(22, 184, 176, 0.7));
+}
+.isl-rule__line--r {
+  background: linear-gradient(270deg, transparent, rgba(22, 184, 176, 0.7));
+}
+.isl-rule__star {
+  flex: none;
+}
+
+/* ── Basmala (seuil de « Qui je suis ») ────────────────────── */
+
+.isl-basmala {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 40rem;
+  margin: 0 auto clamp(36px, 5vw, 64px);
+  text-align: center;
+}
+.isl-basmala__ar {
+  margin: 0;
+  font-size: clamp(1.9rem, 4.4vw, 3rem);
+  line-height: 1.9;
+  color: var(--nh-white);
+}
+.isl-basmala__fr {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--nh-mist);
+}
+.isl-basmala .isl-rule {
+  margin-top: clamp(22px, 3vw, 32px);
+}
+
+/* ── Mes valeurs ───────────────────────────────────────────── */
+
+.isl-values__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.isl-values__item {
+  display: flex;
+}
+.isl-value {
+  flex: 1;
+  isolation: isolate;
+  padding: clamp(22px, 2.4vw, 30px);
+}
+/* Filigrane : étoiles à huit branches en réseau, très discrètes, qui s’effacent vers le bas et la gauche de la carte. */
+.isl-value__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44' fill='none' stroke='%2316b8b0' stroke-width='1'%3E%3Cpath d='M22.00 0.00L28.44 6.44L37.56 6.44L37.56 15.56L44.00 22.00L37.56 28.44L37.56 37.56L28.44 37.56L22.00 44.00L15.56 37.56L6.44 37.56L6.44 28.44L0.00 22.00L6.44 15.56L6.44 6.44L15.56 6.44Z'/%3E%3Cpath d='M28.44 6.44L37.56 15.56L37.56 28.44L28.44 37.56L15.56 37.56L6.44 28.44L6.44 15.56L15.56 6.44Z' stroke-opacity='.55'/%3E%3Cpath d='M25.83 12.76L27.41 16.59L31.24 18.17L29.65 22.00L31.24 25.83L27.41 27.41L25.83 31.24L22.00 29.65L18.17 31.24L16.59 27.41L12.76 25.83L14.35 22.00L12.76 18.17L16.59 16.59L18.17 12.76L22.00 14.35Z' stroke-opacity='.8'/%3E%3C/svg%3E");
+  background-size: 44px 44px;
+  background-position: right top;
+  -webkit-mask-image: radial-gradient(110% 80% at 100% 0%, #000 0%, transparent 62%);
+  mask-image: radial-gradient(110% 80% at 100% 0%, #000 0%, transparent 62%);
+  transition: opacity 0.35s ease;
+}
+.isl-value > :not(.nh-ab-card__glow):not(.isl-value__pattern) {
+  position: relative;
+  z-index: 2;
+}
+.isl-value__ar {
+  margin: 0 0 6px;
+  font-size: clamp(2.4rem, 3.4vw, 3.2rem);
+  line-height: 1.5;
+  text-align: left;
+  color: var(--nh-turq);
+}
+.isl-value h3 {
+  margin: 0 0 4px;
+  font-family: var(--nh-display);
+  font-stretch: 76%;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--nh-white);
+}
+.isl-value__gloss {
+  margin: 0 0 14px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--nh-turq);
+}
+.isl-value__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--nh-mist);
+}
+@media (hover: hover) {
+  .isl-value:hover .isl-value__pattern {
+    opacity: 0.34;
+  }
+}
+@media (max-width: 1179px) {
+  .isl-values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 759px) {
+  .isl-values__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── Citation sur l’excellence ─────────────────────────────── */
+
+.isl-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 46rem;
+  margin: clamp(40px, 5vw, 72px) auto 0;
+  text-align: center;
+}
+.isl-quote__label {
+  margin: 22px 0 10px;
+  font-family: var(--nh-display);
+  font-stretch: 80%;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nh-turq);
+}
+.isl-quote__body {
+  margin: 0;
+}
+.isl-quote__ar {
+  margin: 0;
+  font-size: clamp(1.55rem, 3.4vw, 2.3rem);
+  line-height: 2;
+  color: var(--nh-white);
+}
+.isl-quote__fr {
+  margin: 4px 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--nh-mist);
+}
+.isl-quote__source {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--nh-mist);
+  opacity: 0.85;
+}
+
+/* ── « Pourquoi NOOR » : rosace de lumière et nom en arabe ─── */
+
+/* La rosace occupe la zone vide à droite du texte, derrière le mot NOOR en filigrane (sur mobile, elle déborde
+   et est rognée par la section). Elle s’allume avec le défilement, comme le faisceau (opacité pilotée par Motion
+   dans WhyNoor.jsx). */
+.isl-why-geo {
+  position: absolute;
+  left: 76%;
+  top: 50%;
+  width: clamp(420px, 56vw, 820px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  color: var(--nh-turq);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 68%);
+  mask-image: radial-gradient(circle, #000 30%, transparent 72%);
+}
+.isl-why-geo svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.34;
+}
+.isl-kick-ar {
+  padding-left: 12px;
+  border-left: 1px solid rgba(22, 184, 176, 0.45);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--nh-turq);
+}
+
+/* ── Accueil : « نور » à côté de « Noor signifie lumière » ──── */
+
+.nh-narration {
+  position: relative;
+}
+.isl-noor {
+  position: absolute;
+  top: clamp(8px, 1.2vw, 16px);
+  right: clamp(20px, 2.6vw, 36px);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1.2;
+  color: var(--nh-navy);
+  pointer-events: none;
+  user-select: none;
+}

@@ -17,6 +17,10 @@ import '@fontsource/zen-kaku-gothic-new/latin-500.css';
 import '@fontsource/zen-kaku-gothic-new/latin-700.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 import '@fontsource/jetbrains-mono/latin-500.css';
+// Texte arabe (basmala, valeurs, « نور ») : Noto Naskh Arabic pour les textes, Reem Kufi pour les mots-titres.
+// Sous-ensemble arabe uniquement ; le fichier n’est téléchargé que par une page qui affiche de l’arabe.
+import '@fontsource/noto-naskh-arabic/arabic-400.css';
+import '@fontsource/reem-kufi/arabic-400.css';
 
 import './styles/tokens.css';
 import './styles/reset.css';
@@ -32,6 +36,7 @@ import './styles/services.css';
 import './styles/contact.css';
 import './styles/tech.css';
 import './styles/compact.css';
+import './styles/islamic.css';
 
 import App from './App.jsx';
 

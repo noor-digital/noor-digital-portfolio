@@ -6,12 +6,13 @@ import IdentityIntro from '../components/about/IdentityIntro.jsx';
 import WhyNoor from '../components/about/WhyNoor.jsx';
 import Timeline from '../components/about/Timeline.jsx';
 import SkillsGrid from '../components/about/SkillsGrid.jsx';
+import Values from '../components/about/Values.jsx';
 import Principles from '../components/about/Principles.jsx';
 import AboutFloatingCta from '../components/about/AboutFloatingCta.jsx';
 import PageClose from '../components/home/PageClose.jsx';
 import ScrollRail from '../components/home/ScrollRail.jsx';
 
-// À propos : hero → qui je suis (+ fiche) → pourquoi NOOR → parcours → compétences → ma manière de travailler →
+// À propos : hero → qui je suis (+ fiche) → pourquoi NOOR → parcours → compétences → mes valeurs → ma manière de travailler →
 // travaillons ensemble → clôture. Tout vient de data/site.js (aboutPage, profile, studio, journey, principles, site) et
 // de data/skills.js : rien n’est écrit ici, rien n’est inventé. Champs vides (photo, CV, dates, LinkedIn, WhatsApp) masqués.
 export default function About() {
@@ -31,6 +32,7 @@ export default function About() {
       <WhyNoor />
       <Timeline />
       <SkillsGrid />
+      <Values />
       <Principles />
       <PageClose
         id="about-close"

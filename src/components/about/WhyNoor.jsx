@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { aboutPage, studio } from '../../data/site.js';
+import { noor } from '../../data/values.js';
+import { LightRosette } from '../islamic/Geometry.jsx';
 
 // « Pourquoi NOOR » : le mot en filigrane, un faisceau turquoise qui s’allume avec le défilement et révèle le texte,
 // et la SEULE carte claire de la page (la citation). Texte : studio.text (data/site.js). Seuls transform et opacity bougent.
@@ -13,10 +15,17 @@ export default function WhyNoor() {
   const lead = useTransform(scrollYProgress, [0.05, 0.55], [0.25, 1]);
   const quote = useTransform(scrollYProgress, [0.35, 0.95], [0.25, 1]);
   const glow = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  // La rosace de lumière tourne de quelques degrés pendant que le faisceau s’allume (aucun mouvement avec « mouvement réduit »).
+  const turn = useTransform(scrollYProgress, [0, 1], [-14, 10]);
   const [first, second] = studio.text;
 
   return (
     <section className="nh-ab-sec nh-ab-sec--ink nh-ab-sec--cut nh-ab-why" ref={ref} aria-labelledby="ab-why-title">
+      <motion.span className="isl-why-geo" aria-hidden="true" style={reduce ? { opacity: 1 } : { opacity: glow }}>
+        <motion.span style={reduce ? { display: 'block' } : { display: 'block', width: '100%', height: '100%', rotate: turn }}>
+          <LightRosette />
+        </motion.span>
+      </motion.span>
       <span className="nh-ab-why__mark" aria-hidden="true">
         {t.watermark}
       </span>
@@ -29,6 +38,9 @@ export default function WhyNoor() {
           <p className="nh-ab-kick" id="ab-why-title">
             <span className="nh-ab-slash" aria-hidden="true" />
             {t.kicker}
+            <span className="isl-ar isl-ar--kufi isl-kick-ar" lang="ar" dir="rtl" aria-hidden="true">
+              {noor.ar}
+            </span>
           </p>
           <motion.p className="nh-ab-why__lead" style={reduce ? undefined : { opacity: lead }}>
             {first}
