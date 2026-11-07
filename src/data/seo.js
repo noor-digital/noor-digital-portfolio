@@ -1,7 +1,7 @@
 // Données structurées (JSON-LD) de la page Services. Aucun champ financier dans ces données structurées.
 // Utilisé par le composant ServicesJsonLd (navigateur) et par scripts/postbuild.js (HTML statique).
 
-export function servicesJsonLd({ site, services, faq, url }) {
+export function servicesJsonLd({ site, services, faq, url, siteUrl = site.siteUrl }) {
   const provider = { '@id': `${url}#business` };
   return {
     '@context': 'https://schema.org',
@@ -11,7 +11,7 @@ export function servicesJsonLd({ site, services, faq, url }) {
         '@id': `${url}#business`,
         name: site.name,
         description: 'Développement de sites web, intégration d’interfaces responsive et fonctionnalités dynamiques.',
-        url: site.siteUrl,
+        url: siteUrl,
         slogan: site.signature,
         email: site.email,
         founder: { '@type': 'Person', name: site.owner, jobTitle: site.jobTitle },
@@ -41,7 +41,7 @@ export function servicesJsonLd({ site, services, faq, url }) {
 }
 
 // Page Contact : ContactPage + ProfessionalService. Aucun champ financier ; seuls les canaux confirmés apparaissent.
-export function contactJsonLd({ site, url }) {
+export function contactJsonLd({ site, url, siteUrl = site.siteUrl }) {
   const sameAs = [site.github, site.linkedin].filter(Boolean);
   return {
     '@context': 'https://schema.org',
@@ -58,7 +58,7 @@ export function contactJsonLd({ site, url }) {
         '@type': 'ProfessionalService',
         '@id': `${url}#business`,
         name: site.name,
-        url: site.siteUrl,
+        url: siteUrl,
         email: site.email,
         slogan: site.signature,
         address: { '@type': 'PostalAddress', addressLocality: 'Dakar', addressCountry: 'SN' },
@@ -114,7 +114,7 @@ export function projectsJsonLd({ site, projects, url }) {
 }
 
 // Page À propos : ProfilePage + Person. Uniquement des faits présents dans data/site.js ; aucun champ financier.
-export function aboutJsonLd({ site, url }) {
+export function aboutJsonLd({ site, url, siteUrl = site.siteUrl }) {
   const sameAs = [site.github, site.linkedin].filter(Boolean);
   return {
     '@context': 'https://schema.org',
@@ -132,7 +132,7 @@ export function aboutJsonLd({ site, url }) {
         '@id': `${url}#person`,
         name: site.owner,
         jobTitle: site.jobTitle,
-        url: site.siteUrl,
+        url: siteUrl,
         email: site.email,
         address: { '@type': 'PostalAddress', addressLocality: 'Dakar', addressCountry: 'SN' },
         alumniOf: { '@type': 'CollegeOrUniversity', name: 'UVS' },

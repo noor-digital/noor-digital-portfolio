@@ -27,7 +27,33 @@ const { projects } = await import(pathToFileURL(join(root, 'src', 'data', 'proje
 const { servicesJsonLd, contactJsonLd, projectsJsonLd, aboutJsonLd } = await import(pathToFileURL(join(root, 'src', 'data', 'seo.js')).href);
 
 const baseHtml = await readFile(join(dist, 'index.html'), 'utf8');
-const siteUrl = site.siteUrl.endsWith('/') ? site.siteUrl : `${site.siteUrl}/`;
+const isVercel = process.env.VERCEL === '1';
+const configuredSiteUrl = process.env.VITE_SITE_URL?.trim();
+
+if (isVercel && !configuredSiteUrl) {
+  throw new Error(
+    'postbuild : VITE_SITE_URL doit être configurée sur Vercel.',
+  );
+}
+
+const rawSiteUrl = configuredSiteUrl || site.siteUrl;
+const parsedSiteUrl = new URL(rawSiteUrl);
+
+if (parsedSiteUrl.protocol !== 'https:') {
+  throw new Error('postbuild : l’URL du site doit utiliser HTTPS.');
+}
+
+if (parsedSiteUrl.search || parsedSiteUrl.hash) {
+  throw new Error('postbuild : VITE_SITE_URL ne doit contenir ni paramètres ni fragment.');
+}
+
+if (isVercel && parsedSiteUrl.pathname !== '/') {
+  throw new Error('postbuild : l’URL Vercel doit pointer vers la racine du domaine.');
+}
+
+const siteUrl = `${parsedSiteUrl.origin}${parsedSiteUrl.pathname.endsWith('/')
+  ? parsedSiteUrl.pathname
+  : `${parsedSiteUrl.pathname}/`}`;
 
 const escapeAttr = (value) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -72,10 +98,16 @@ for (const route of routes) {
 
   // Données structurées des pages Services, Contact, Projets et À propos, sans aucun champ financier.
   const jsonLdBuilders = {
-    '/services': () => servicesJsonLd({ site, services, faq: servicesPage.faq.items, url }),
-    '/contact': () => contactJsonLd({ site, url }),
+    '/services': () => servicesJsonLd({
+      site,
+      services,
+      faq: servicesPage.faq.items,
+      url,
+      siteUrl,
+    }),
+    '/contact': () => contactJsonLd({ site, url, siteUrl }),
     '/projets': () => projectsJsonLd({ site, projects, url }),
-    '/a-propos': () => aboutJsonLd({ site, url }),
+    '/a-propos': () => aboutJsonLd({ site, url, siteUrl }),
   };
   if (jsonLdBuilders[route.path]) {
     const data = jsonLdBuilders[route.path]();
